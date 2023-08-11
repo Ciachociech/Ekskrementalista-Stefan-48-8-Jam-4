@@ -4,7 +4,7 @@
 
 namespace engine {
 
-Stage::Stage() { this->init(); }
+Stage::Stage() : player(400.f, 400.f) { this->init(); }
 
 Stage::~Stage() {}
 
@@ -15,7 +15,8 @@ void Stage::loadFont(TTF_Font* font) { this->font_ = font; }
 std::int8_t Stage::run() {
     SDL_Event event;
 
-    this->render();
+    float movX = 0;
+    float movY = 0;
 
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
@@ -26,18 +27,19 @@ std::int8_t Stage::run() {
         case SDL_KEYDOWN:
         case SDL_KEYUP: {
             std::list<input::KeyAction> keyActions = keyboard.interpretAction();
+
             if (*keyActions.begin() == input::KeyAction::moveUp) {
-                renderable.move(0, -1);
+                movY -= playerMovement;
                 keyActions.pop_front();
             } else if (*keyActions.begin() == input::KeyAction::moveDown) {
-                renderable.move(0, 1);
+                movY += playerMovement;
                 keyActions.pop_front();
             }
             if (*keyActions.begin() == input::KeyAction::moveLeft) {
-                renderable.move(-1, 0);
+                movX -= playerMovement;
                 keyActions.pop_front();
             } else if (*keyActions.begin() == input::KeyAction::moveRight) {
-                renderable.move(1, 0);
+                movX += playerMovement;
                 keyActions.pop_front();
             }
 
@@ -50,17 +52,20 @@ std::int8_t Stage::run() {
         }
     }
 
+    player.move(movX, movY);
+
+    this->render();
+
     return 0;
 }
 
 void Stage::init() {
     if (this->windowRenderer_) {
-        renderable.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
+        player.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
                                 this->windowRenderer_);
-        renderable.move(400, 400);
     }
 }
 
-void Stage::render() { renderable.render(0, 0, this->windowRenderer_); }
+void Stage::render() { player.render(0, 0, this->windowRenderer_); }
 
 } // namespace engine

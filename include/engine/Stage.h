@@ -4,10 +4,16 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#include "Renderable.h"
+#include "Player.h"
 #include "input/InputKeyboard.h"
 
 namespace engine {
+
+namespace {
+
+constexpr float playerMovement = 5.f;
+
+}
 
 class Stage {
 private:
@@ -18,7 +24,7 @@ private:
     // Game managers
 
     // Others
-    Renderable renderable;
+    Player player;
     input::InputKeyboard keyboard;
 
 public:
