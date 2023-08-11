@@ -22,8 +22,8 @@ private:
     SDL_Texture* texture_;
 
     // Other values
-    std::uint16_t x_;
-    std::uint16_t y_;
+    float x_;
+    float y_;
     std::uint16_t w_;
     std::uint16_t h_;
     float scaleX_;
@@ -37,7 +37,7 @@ private:
 
 public:
     Renderable();
-    Renderable(int x, int y);
+    Renderable(float x, float y);
     virtual ~Renderable();
 
     virtual bool loadFromFile(float scaleX, float scaleY, int frames, int sides,
@@ -46,7 +46,7 @@ public:
     void free();
     virtual void render(int cameraX, int cameraY, SDL_Renderer* renderer);
 
-    virtual void move(int x, int y);
+    virtual void move(float x, float y);
     void setSpriteSide(lookAt newSide);
 
     std::uint16_t X();
