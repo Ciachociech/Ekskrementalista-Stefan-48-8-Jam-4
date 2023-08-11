@@ -17,6 +17,12 @@
     <Filter Include="src\engine">
       <UniqueIdentifier>{64ac85f2-7a0c-4b5c-a4ba-c32aa3e9e2d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\input">
+      <UniqueIdentifier>{5751255a-c99a-4677-8e38-1619a3103074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\input">
+      <UniqueIdentifier>{b567e842-61d6-4462-86d0-ffe66173f851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -34,6 +40,12 @@
     <ClCompile Include="src\engine\Renderable.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Player.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\InputKeyboard.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -44,6 +56,12 @@
     </ClInclude>
     <ClInclude Include="include\engine\Renderable.h">
       <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Player.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\InputKeyboard.h">
+      <Filter>include\input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

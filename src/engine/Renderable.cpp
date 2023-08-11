@@ -4,9 +4,13 @@
 
 namespace engine {
 
-Renderable::Renderable() {}
+Renderable::Renderable()
+    : x_(0), y_(0), w_(0), h_(0), scaleX_(1.f), scaleY_(1.f), frames_(1), sides_(1),
+      currentFrame_(0), texture_(NULL), spriteSide_(lookAt::left) {}
 
-Renderable::Renderable(int x, int y) {}
+Renderable::Renderable(int x, int y)
+    : x_(x), y_(y), w_(0), h_(0), scaleX_(1.f), scaleY_(1.f), frames_(1), sides_(1),
+      currentFrame_(0), texture_(NULL), spriteSide_(lookAt::left) {}
 
 Renderable::~Renderable() {}
 
@@ -65,11 +69,19 @@ void Renderable::render(int x, int y, SDL_Renderer* renderer) {
     SDL_RenderCopy(renderer, this->texture_, &srcRenderQuad, &dstRenderQuad);
 }
 
-void Renderable::setXY(int x, int y) {
-    this->x_ = x;
-    this->y_ = y;
+void Renderable::move(int x, int y) {
+    this->x_ += x;
+    this->y_ += y;
 }
 
 void Renderable::setSpriteSide(lookAt newSide) { this->spriteSide_ = newSide; }
+
+std::uint16_t Renderable::X() { return this->x_; }
+
+std::uint16_t Renderable::Y() { return this->y_; }
+
+std::uint16_t Renderable::W() { return this->w_; }
+
+std::uint16_t Renderable::H() { return this->h_; }
 
 } // namespace engine

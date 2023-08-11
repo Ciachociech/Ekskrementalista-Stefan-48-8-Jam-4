@@ -22,8 +22,8 @@ private:
     SDL_Texture* texture_;
 
     // Other values
-    std::uint16_t y_;
     std::uint16_t x_;
+    std::uint16_t y_;
     std::uint16_t w_;
     std::uint16_t h_;
     float scaleX_;
@@ -46,8 +46,13 @@ public:
     void free();
     virtual void render(int cameraX, int cameraY, SDL_Renderer* renderer);
 
-    void setXY(int x, int y);
+    virtual void move(int x, int y);
     void setSpriteSide(lookAt newSide);
+
+    std::uint16_t X();
+    std::uint16_t Y();
+    std::uint16_t W();
+    std::uint16_t H();
 };
 
 } // namespace engine
