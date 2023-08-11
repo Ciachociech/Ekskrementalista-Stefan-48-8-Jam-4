@@ -28,9 +28,21 @@
     <ClCompile Include="src\engine\Instance.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Stage.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Renderable.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Stage.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Renderable.h">
       <Filter>include\engine</Filter>
     </ClInclude>
   </ItemGroup>
