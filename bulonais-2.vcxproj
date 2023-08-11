@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\Instance.cpp" />
+    <ClCompile Include="src\engine\Renderable.cpp" />
+    <ClCompile Include="src\engine\Stage.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h" />
+    <ClInclude Include="include\engine\Renderable.h" />
+    <ClInclude Include="include\engine\Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -87,9 +87,12 @@ bool Instance::loop() {
     while (!quit) {
         frameTime = SDL_GetTicks();
 
+        stage.run();
+
         render();
 
         SDL_Delay(9000);
+
         quit = true;
 
         // if ((SDL_GetTicks() - frameTime) < (1000.f / FPS)) { SDL_Delay((1000.f / FPS) -
@@ -101,6 +104,9 @@ bool Instance::loop() {
 
 void Instance::render() {
     SDL_RenderClear(this->windowRenderer_);
+
+    stage.render();
+
     SDL_RenderPresent(this->windowRenderer_);
 }
 
@@ -115,6 +121,9 @@ Instance::Instance() {
 Instance::~Instance() {}
 
 void Instance::run() {
+    stage.loadRenderer(this->windowRenderer_);
+    stage.init();
+
     if (!loop()) { printf("Problem occured during running instance!"); }
     close();
 }

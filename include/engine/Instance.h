@@ -7,6 +7,8 @@
 #include <cstdint>
 #include <string>
 
+#include "Stage.h"
+
 namespace engine {
 
 class Instance {
@@ -24,7 +26,7 @@ private:
     // Global SDL values
     const int FPS = 60;
     const std::string logoPath_ = "assets/icons/game.png";
-    const std::string gameVersion_ = "0.0.1";
+    const std::string gameVersion_ = "0.0.2";
     const std::string instanceNamePL_ = u8"TBD (" + gameVersion_ + ")";
     const std::string instanceNameEN_ = u8"TBD (" + gameVersion_ + ")";
 
@@ -38,6 +40,8 @@ private:
     void render();
 
     // Others
+    Stage stage;
+
 public:
     Instance();
     virtual ~Instance();
