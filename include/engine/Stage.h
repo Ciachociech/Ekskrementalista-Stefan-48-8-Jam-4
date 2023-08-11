@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 
 #include "Renderable.h"
+#include "input/InputKeyboard.h"
 
 namespace engine {
 
@@ -18,6 +19,7 @@ private:
 
     // Others
     Renderable renderable;
+    input::InputKeyboard keyboard;
 
 public:
     Stage();
@@ -28,7 +30,7 @@ public:
     void loadFont(TTF_Font* font);
 
     // Game functions
-    int run();
+    std::int8_t run();
     void init();
     void render();
 };

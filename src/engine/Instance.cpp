@@ -87,16 +87,13 @@ bool Instance::loop() {
     while (!quit) {
         frameTime = SDL_GetTicks();
 
-        stage.run();
+        if (stage.run() == -1) { quit = true; }
 
         render();
 
-        SDL_Delay(9000);
-
-        quit = true;
-
-        // if ((SDL_GetTicks() - frameTime) < (1000.f / FPS)) { SDL_Delay((1000.f / FPS) -
-        // (SDL_GetTicks() - frameTime)); }
+        if ((SDL_GetTicks() - frameTime) < (1000.f / FPS)) {
+            SDL_Delay((1000.f / FPS) - (SDL_GetTicks() - frameTime));
+        }
     }
 
     return true;
