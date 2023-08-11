@@ -9,8 +9,7 @@ namespace engine {
 
 namespace {
 
-constexpr float maxSpeed = 5.f;
-constexpr float maxAcc = 30.f;
+constexpr float maxSpeed = 2.5f;
 
 }
 

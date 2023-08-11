@@ -4,7 +4,13 @@
 
 namespace engine {
 
-Stage::Stage() : player(400.f, 400.f) { this->init(); }
+namespace {
+
+//managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+
+}
+
+Stage::Stage() : player_(400.f, 400.f) { this->init(); }
 
 Stage::~Stage() {}
 
@@ -52,7 +58,7 @@ std::int8_t Stage::run() {
         }
     }
 
-    player.move(movX, movY);
+    player_.move(movX, movY);
 
     this->render();
 
@@ -61,11 +67,17 @@ std::int8_t Stage::run() {
 
 void Stage::init() {
     if (this->windowRenderer_) {
-        player.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
+        player_.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
                                 this->windowRenderer_);
+
+        managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+        renderableManager.addRenderable(&player_);
     }
 }
 
-void Stage::render() { player.render(0, 0, this->windowRenderer_); }
+void Stage::render() { 
+    managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+    renderableManager.render(); 
+}
 
 } // namespace engine

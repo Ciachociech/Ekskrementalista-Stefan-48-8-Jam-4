@@ -24,6 +24,7 @@ bool Instance::init() {
         printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
         return false;
     }
+    managers::RenderableManager& renderableManager = managers::RenderableManager::instance(this->windowRenderer_);
 
     this->windowSurface_ = SDL_GetWindowSurface(this->window_);
     if (this->windowSurface_ == NULL) {
