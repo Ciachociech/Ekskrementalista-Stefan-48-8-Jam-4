@@ -141,6 +141,7 @@
     <ClCompile Include="src\engine\Stage.cpp" />
     <ClCompile Include="src\input\InputKeyboard.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\managers\RenderableManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -151,6 +152,7 @@
     <ClInclude Include="include\engine\Renderable.h" />
     <ClInclude Include="include\engine\Stage.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
+    <ClInclude Include="include\managers\RenderableManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

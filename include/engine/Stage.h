@@ -4,14 +4,15 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#include "Player.h"
 #include "input/InputKeyboard.h"
+#include "managers/RenderableManager.h"
+#include "Player.h"
 
 namespace engine {
 
 namespace {
 
-constexpr float playerMovement = 5.f;
+constexpr float playerMovement = 1.5f;
 
 }
 
@@ -21,10 +22,8 @@ private:
     SDL_Renderer* windowRenderer_ = NULL;
     TTF_Font* font_ = NULL;
 
-    // Game managers
-
     // Others
-    Player player;
+    Player player_;
     input::InputKeyboard keyboard;
 
 public:

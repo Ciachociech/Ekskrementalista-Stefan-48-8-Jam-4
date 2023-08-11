@@ -23,6 +23,12 @@
     <Filter Include="src\input">
       <UniqueIdentifier>{b567e842-61d6-4462-86d0-ffe66173f851}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\managers">
+      <UniqueIdentifier>{f165bc46-eef1-4680-b118-eb886d7a542f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers">
+      <UniqueIdentifier>{b2860fa6-d6aa-41b2-8fce-abfc31ddf10d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -46,6 +52,9 @@
     <ClCompile Include="src\input\InputKeyboard.cpp">
       <Filter>src\input</Filter>
     </ClCompile>
+    <ClCompile Include="src\managers\RenderableManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -62,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="include\input\InputKeyboard.h">
       <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\RenderableManager.h">
+      <Filter>include\managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
