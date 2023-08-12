@@ -14,13 +14,16 @@ private:
 	float radius_;
 	CollisionEntityType type_;
 public:
-	Collisionable(float xCenter, float yCenter, float radius, CollisionEntityType type);
+	Collisionable(CollisionEntityType type);
 	virtual ~Collisionable();
 
 	float centerX();
 	float centerY();
 	float R();
 	CollisionEntityType getType();
+
+	void setCenter(float x, float y);
+	void setRadius(float radius);
 };
 
 }
