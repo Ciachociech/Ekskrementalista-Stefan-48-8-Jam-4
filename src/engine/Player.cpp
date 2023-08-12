@@ -20,6 +20,10 @@ void Player::move(float x, float y) {
 
 	float moveX = this->velX_;
 	float moveY = this->velY_;
+	if (this->X() + moveX < 0.f) { moveX = -this->X(); }
+	else if (this->X() + this->W() + moveX > 800.f) { moveX = 800 - this->X() - this->W(); }
+	if (this->Y() + moveY < 0.f) { moveY = -this->Y(); }
+	else if (this->Y() + this->H() + moveY > 800.f) { moveY = 800 - this->Y() - this->H(); }
 	Renderable::move(moveX, moveY);
 
 	this->velX_ *= 0.8;

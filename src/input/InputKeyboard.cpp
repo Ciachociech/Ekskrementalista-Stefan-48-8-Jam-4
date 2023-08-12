@@ -33,6 +33,9 @@ std::list<KeyAction> InputKeyboard::interpretAction() {
         actions.push_back(KeyAction::moveRight);
     }
 
+    if (keyboardStates[defaultShotKey - scancodeShift]) {
+        actions.push_back(KeyAction::shootBullet);
+    }
     if (keyboardStates[defaultInstinctKey - scancodeShift]) {
         actions.push_back(KeyAction::useInstinct);
     }

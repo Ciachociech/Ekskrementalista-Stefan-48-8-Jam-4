@@ -76,9 +76,9 @@ void Renderable::move(float x, float y) {
 
 void Renderable::setSpriteSide(lookAt newSide) { this->spriteSide_ = newSide; }
 
-std::uint16_t Renderable::X() { return this->x_; }
+float Renderable::X() { return this->x_; }
 
-std::uint16_t Renderable::Y() { return this->y_; }
+float Renderable::Y() { return this->y_; }
 
 std::uint16_t Renderable::W() { return this->w_; }
 

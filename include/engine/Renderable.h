@@ -49,8 +49,8 @@ public:
     virtual void move(float x, float y);
     void setSpriteSide(lookAt newSide);
 
-    std::uint16_t X();
-    std::uint16_t Y();
+    float X();
+    float Y();
     std::uint16_t W();
     std::uint16_t H();
 };
