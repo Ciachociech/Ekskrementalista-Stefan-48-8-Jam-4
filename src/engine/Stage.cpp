@@ -85,7 +85,7 @@ std::int8_t Stage::run() {
     if (enableShooting) {
         std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() + this->player_->W() / 2, this->player_->Y(), false, playerBulletMovement);
         bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
-        renderableManager.addRenderable(bullet);
+        renderableManager.addCollisionable(bullet);
         this->player_->resetUpdateFrameCounter();
     }
 
@@ -104,12 +104,12 @@ void Stage::init() {
                                 this->windowRenderer_);
 
         managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
-        renderableManager.addRenderable(player_);
+        renderableManager.addCollisionable(player_);
 
         for (int it = 0; it < 16; ++it) {
             std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(24 + 48 * (it % 16), 32, enemyEmptyMovement);
             enemy->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
-            renderableManager.addRenderable(enemy);
+            renderableManager.addCollisionable(enemy);
         }
     }
 }

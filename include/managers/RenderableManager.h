@@ -33,7 +33,7 @@ public:
 	void render();
 
 	void addRenderable(std::shared_ptr<engine::Renderable> renderable);
-	void addCollisiionable(std::shared_ptr<engine::Collisionable> collisionable);
+	void addCollisionable(std::shared_ptr<engine::Collisionable> collisionable);
 	void update();
 };
 
