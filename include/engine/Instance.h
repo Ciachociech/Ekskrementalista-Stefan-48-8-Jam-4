@@ -26,7 +26,7 @@ private:
     // Global SDL values
     const int FPS = 60;
     const std::string logoPath_ = "assets/icons/game.png";
-    const std::string gameVersion_ = "0.1.0";
+    const std::string gameVersion_ = "0.1.1";
     const std::string instanceNamePL_ = u8"TBD (" + gameVersion_ + ")";
     const std::string instanceNameEN_ = u8"TBD (" + gameVersion_ + ")";
 

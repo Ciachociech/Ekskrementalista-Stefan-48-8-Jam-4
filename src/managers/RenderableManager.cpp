@@ -31,47 +31,72 @@ void RenderableManager::checkCollision() {
 
 	for (auto it1 = 0; it1 < this->collisionables_.size(); ++it1) {
 		for (auto it2 = it1 + 1; it2 < this->collisionables_.size(); ++it2) {
-			engine::CollisionEntityType type1 = this->collisionables_[it1]->getType();
-			engine::CollisionEntityType type2 = this->collisionables_[it2]->getType();
-			switch (type1) {
-			case engine::CollisionEntityType::PLAYER: {
-				if ((type2 == engine::CollisionEntityType::ENEMY || type2 == engine::CollisionEntityType::ENEMY_BULLET) && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
-					printf("Contact!");
-					toRemove[it2] = true;
+			if (this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
+				engine::CollisionEntityType type1 = this->collisionables_[it1]->getType();
+				engine::CollisionEntityType type2 = this->collisionables_[it2]->getType();
+				switch (type1) {
+					case engine::CollisionEntityType::PLAYER: {
+						if (type2 == engine::CollisionEntityType::ENEMY) {
+							//it1.damage(1)
+							toRemove[it2] = true;
+						}
+						else if (type2 == engine::CollisionEntityType::POWERUP) {
+							//it1.damage(-1)
+							toRemove[it2] = true;
+						}
+						else if (type2 == engine::CollisionEntityType::BOSS) {
+							//it1.damage(1)
+						}
+						break;
+					}
+
+					case engine::CollisionEntityType::ALLY_BULLET: {
+						if (type2 == engine::CollisionEntityType::ENEMY) {
+							toRemove[it1] = true;
+							toRemove[it2] = true;
+						}
+						else if (type2 == engine::CollisionEntityType::BOSS) {
+							toRemove[it1] = true;
+							//it2.damage(1)
+						}
+						break;
+					}
+
+					case engine::CollisionEntityType::ENEMY: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							toRemove[it1] = true;
+							//it2.damage(1)
+						} 
+						else if (type2 == engine::CollisionEntityType::ALLY_BULLET) {
+							toRemove[it1] = true;
+							toRemove[it2] = true;
+						}
+						break;
+					}
+
+					case engine::CollisionEntityType::POWERUP: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							//it1.damage(-1)
+							toRemove[it2] = true;
+						}
+						break;
+					}
+
+					case engine::CollisionEntityType::BOSS: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							//it1.damage(-1)
+						}
+						break;
+					}
+					default: { break; }
+
 				}
-				break;
-			}
-			case engine::CollisionEntityType::ALLY_BULLET: {
-				if (type2 == engine::CollisionEntityType::ENEMY && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
-					printf("Contact!");
-					toRemove[it1] = true;
-					toRemove[it2] = true;
-				}
-				break;
-			}
-			case engine::CollisionEntityType::ENEMY: {
-				if ((type2 == engine::CollisionEntityType::PLAYER || type2 == engine::CollisionEntityType::ALLY_BULLET) && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
-					printf("Contact!");
-					toRemove[it1] = true;
-					//toRemove[it2] = true;
-				}
-				break;
-			}
-			case engine::CollisionEntityType::ENEMY_BULLET:
-				if (type2 == engine::CollisionEntityType::PLAYER && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
-					printf("Contact!");
-					toRemove[it1] = true;
-					toRemove[it2] = true;
-				}
-				break;
-			default: { break; }
 			}
 		}
 	}
 
 	for (std::int16_t it = toRemove.size() - 1; it > -1; --it) {
 		if (toRemove[it]) { 
-			printf("%d should be removed!\n", it);
 			this->collisionables_.erase(this->collisionables_.begin() + it); 
 		}
 	}

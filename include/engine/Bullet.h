@@ -11,7 +11,7 @@ class Bullet : public Collisionable {
 private:
 	std::function<void(float& x, float& y)> movementPattern_;
 public:
-	Bullet(float x, float y, bool isHostile, std::function<void(float& x, float& y)> movementPattern);
+	Bullet(float x, float y, std::function<void(float& x, float& y)> movementPattern);
 	virtual ~Bullet();
 
 	void update(float x, float y) override;

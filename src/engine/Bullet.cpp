@@ -2,7 +2,7 @@
 
 namespace engine {
 	
-Bullet::Bullet(float x, float y, bool isHostile, std::function<void(float& x, float& y)> movementPattern) : Collisionable(x, y, isHostile ? CollisionEntityType::ENEMY_BULLET : CollisionEntityType::ALLY_BULLET), movementPattern_(movementPattern) {
+Bullet::Bullet(float x, float y, std::function<void(float& x, float& y)> movementPattern) : Collisionable(x, y, CollisionEntityType::ALLY_BULLET), movementPattern_(movementPattern) {
 	this->setHitboxCenter(x + (W() / 2), y + (H() / 2));
 	this->setHitboxRadius(H() / 2);
 }

@@ -6,7 +6,7 @@
 namespace engine {
 
 enum class CollisionEntityType {
-	PLAYER = 0, ALLY_BULLET = 1, ENEMY = 2, ENEMY_BULLET = 3, GHOST_ENEMY = 6
+	PLAYER = 0, ALLY_BULLET = 1, ENEMY = 2, POWERUP = 4, BOSS = 6
 };
 
 class Collisionable : public Renderable {
