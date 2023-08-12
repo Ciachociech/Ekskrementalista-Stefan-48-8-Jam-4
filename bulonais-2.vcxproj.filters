@@ -29,6 +29,15 @@
     <Filter Include="src\managers">
       <UniqueIdentifier>{b2860fa6-d6aa-41b2-8fce-abfc31ddf10d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{369882c2-6640-4ac4-b002-1a7f746c3aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\icons">
+      <UniqueIdentifier>{2a20ba92-6aff-4aa6-84f2-316281c99be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sprites">
+      <UniqueIdentifier>{68b6a018-daf2-4783-9e82-5f4c2deda1d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -55,6 +64,12 @@
     <ClCompile Include="src\managers\RenderableManager.cpp">
       <Filter>src\managers</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Bullet.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\Enemy.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -75,5 +90,30 @@
     <ClInclude Include="include\managers\RenderableManager.h">
       <Filter>include\managers</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\Bullet.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Enemy.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\NerkoOne-Regular.ttf">
+      <Filter>assets\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\icons\game.png">
+      <Filter>assets\icons</Filter>
+    </Image>
+    <Image Include="assets\sprites\wip.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\poop.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\bulonais.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
   </ItemGroup>
 </Project>
