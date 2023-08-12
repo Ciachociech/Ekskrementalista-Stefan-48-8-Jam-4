@@ -15,7 +15,7 @@ void Bullet::update(float x, float y) {
 
 	this->movementPattern_(moveX, moveY);
 	Renderable::update(moveX, moveY);
-	this->setHitboxCenter(X() + W() / 2 + moveX, Y() + H() / 2 + moveY);
+	this->setHitboxCenter(X() + W() / 2, Y() + H() / 2);
 }
 
 

@@ -28,7 +28,7 @@ void Player::update(float x, float y) {
 	if (this->Y() + moveY < 0.f) { moveY = -this->Y(); }
 	else if (this->Y() + this->H() + moveY > 800.f) { moveY = 800 - this->Y() - this->H(); }
 	Renderable::update(moveX, moveY);
-	this->setHitboxCenter(X() + W() / 2 + moveX, Y() + H() / 2 + moveY);
+	this->setHitboxCenter(X() + W() / 2, Y() + H() / 2);
 
 	this->velX_ *= 0.8;
 	this->velY_ *= 0.8;
