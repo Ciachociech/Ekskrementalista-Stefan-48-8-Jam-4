@@ -34,6 +34,30 @@ std::int8_t Stage::run() {
 
     managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
 
+    {
+        std::list<input::KeyAction> keyActions = keyboard.interpretMultipleAction();
+
+        if (*keyActions.begin() == input::KeyAction::moveUp) {
+            movY -= playerMovement;
+            keyActions.pop_front();
+        } else if (*keyActions.begin() == input::KeyAction::moveDown) {
+            movY += playerMovement;
+            keyActions.pop_front();
+        }
+        if (*keyActions.begin() == input::KeyAction::moveLeft) {
+            movX -= playerMovement;
+            keyActions.pop_front();
+        } else if (*keyActions.begin() == input::KeyAction::moveRight) {
+            movX += playerMovement;
+            keyActions.pop_front();
+        }
+
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getBulletFrameCounter() > 4) {
+            enableShooting = true;
+            keyActions.pop_front();
+        }
+    }
+
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
         case SDL_QUIT: {
@@ -42,27 +66,8 @@ std::int8_t Stage::run() {
         }
         case SDL_KEYDOWN:
         case SDL_KEYUP: {
-            std::list<input::KeyAction> keyActions = keyboard.interpretAction();
+            std::list<input::KeyAction> keyActions = keyboard.interpretSingleAction();
 
-            if (*keyActions.begin() == input::KeyAction::moveUp) {
-                movY -= playerMovement;
-                keyActions.pop_front();
-            } else if (*keyActions.begin() == input::KeyAction::moveDown) {
-                movY += playerMovement;
-                keyActions.pop_front();
-            }
-            if (*keyActions.begin() == input::KeyAction::moveLeft) {
-                movX -= playerMovement;
-                keyActions.pop_front();
-            } else if (*keyActions.begin() == input::KeyAction::moveRight) {
-                movX += playerMovement;
-                keyActions.pop_front();
-            }
-
-            if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getBulletFrameCounter() > 4) {
-                enableShooting = true;
-                keyActions.pop_front();
-            }
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
             break;
         }
