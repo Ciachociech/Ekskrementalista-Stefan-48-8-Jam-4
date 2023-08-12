@@ -8,6 +8,8 @@
 #include "managers/RenderableManager.h"
 #include "Player.h"
 
+#include "Bullet.h"
+
 namespace engine {
 
 namespace {
@@ -24,6 +26,7 @@ private:
 
     // Others
     Player player_;
+    std::vector<Bullet> bullets{};
     input::InputKeyboard keyboard;
 
 public:

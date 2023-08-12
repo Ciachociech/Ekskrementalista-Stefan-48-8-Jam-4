@@ -14,6 +14,7 @@ enum class KeyAction {
     moveDown,
     moveLeft,
     moveRight,
+    shootBullet,
     useInstinct
 };
 
@@ -21,6 +22,7 @@ const SDL_Keycode defaultUpKey = SDLK_w;
 const SDL_Keycode defaultDownKey = SDLK_s;
 const SDL_Keycode defaultLeftKey = SDLK_a;
 const SDL_Keycode defaultRightKey = SDLK_d;
+const SDL_Keycode defaultShotKey = SDLK_k;
 const SDL_Keycode defaultInstinctKey = SDLK_l;
 
 namespace {

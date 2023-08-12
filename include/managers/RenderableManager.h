@@ -15,6 +15,7 @@ private:
 	std::vector<engine::Renderable*> renderables_;
 
 	RenderableManager(SDL_Renderer* renderer);
+	void clean();
 public:
 	RenderableManager(const RenderableManager& /*original*/) = delete;
 	RenderableManager& operator=(const RenderableManager& /*object*/) = delete;
@@ -23,9 +24,9 @@ public:
 	virtual ~RenderableManager();
 
 	void render();
-	void clean();
 
 	void addRenderable(engine::Renderable* renderable);
+	void move();
 };
 
 }

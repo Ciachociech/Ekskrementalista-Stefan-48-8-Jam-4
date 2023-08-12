@@ -2,11 +2,18 @@
 
 #include <list>
 
+#include "engine/Bullet.h"
+
 namespace engine {
 
 namespace {
 
 //managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+
+void playerBulletMovement(float& x, float& y) {
+    x = 0.f;
+    y = -6.f;
+}
 
 }
 
@@ -23,6 +30,8 @@ std::int8_t Stage::run() {
 
     float movX = 0;
     float movY = 0;
+
+    managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
 
     while (SDL_PollEvent(&event) != 0) {
         switch (event.type) {
@@ -49,6 +58,14 @@ std::int8_t Stage::run() {
                 keyActions.pop_front();
             }
 
+            if (*keyActions.begin() == input::KeyAction::shootBullet) {
+                //Bullet bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+                Bullet bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+                bullet.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+                bullets.push_back(bullet);
+                renderableManager.addRenderable(&bullet);
+                keyActions.pop_front();
+            }
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
             break;
         }
@@ -58,7 +75,8 @@ std::int8_t Stage::run() {
         }
     }
 
-    player_.move(movX, movY);
+    this->player_.move(movX, movY);
+    renderableManager.move();
 
     this->render();
 

@@ -2,6 +2,18 @@
 
 namespace managers {
 
+void RenderableManager::clean() {
+	for (auto it = this->renderables_.begin(); it != this->renderables_.end();) {
+		bool isOutside = (*it)->X() < -2 * (*it)->W() || (*it)->X() > 800 + 2 * (*it)->W() ||
+			(*it)->Y() < -2 * (*it)->H() || (*it)->Y() > 800 + 2 * (*it)->H();
+		if (isOutside) {
+			it = this->renderables_.erase(it);
+		} else {
+			++it;
+		}
+	}
+}
+
 RenderableManager::RenderableManager(SDL_Renderer* renderer) : renderer_(renderer), renderables_() {}
 
 RenderableManager& RenderableManager::instance(SDL_Renderer* renderer) {
@@ -17,18 +29,16 @@ void RenderableManager::render() {
 	}
 }
 
-void RenderableManager::clean() {
-	for (auto it = this->renderables_.begin(); it != this->renderables_.end(); ++it) {
-		bool isOutside = (*it)->X() < -2 * (*it)->W() || (*it)->X() > 800 + 2 * (*it)->W() ||
-			(*it)->Y() < -2 * (*it)->H() || (*it)->Y() > 800 + 2 * (*it)->H();
-		if (isOutside) {
-			this->renderables_.erase(it);
-		}
-	}
-}
-
 void RenderableManager::addRenderable(engine::Renderable* renderable) {
 	this->renderables_.push_back(renderable);
+}
+
+void RenderableManager::move() {
+	//ignore first element (so now), because of player instance
+	for (auto it = ++this->renderables_.begin(); it != this->renderables_.end(); ++it) {
+		(*it)->move(0, 0);
+	}
+	if (this->renderables_.size() > 1) { this->clean(); }
 }
 
 }
