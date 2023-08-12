@@ -70,6 +70,9 @@
     <ClCompile Include="src\engine\Enemy.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Collisionable.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -94,6 +97,9 @@
       <Filter>include\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\Enemy.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Collisionable.h">
       <Filter>include\engine</Filter>
     </ClInclude>
   </ItemGroup>

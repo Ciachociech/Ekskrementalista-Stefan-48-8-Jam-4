@@ -3,13 +3,12 @@
 
 #include <functional>
 
+#include "Collisionable.h"
 #include "Renderable.h"
 
 namespace engine {
 
-
-
-class Enemy : public Renderable {
+class Enemy : public Renderable, public Collisionable {
 private:
 	std::function<void(float& x, float& y)> movementPattern_;
 public:

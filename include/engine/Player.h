@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+#include "Collisionable.h"
 #include "Renderable.h"
 
 namespace engine {
@@ -13,7 +14,7 @@ constexpr float maxSpeed = 4.5f;
 
 }
 
-class Player: public Renderable {
+class Player: public Renderable, public Collisionable {
 private:
     float velX_;
     float velY_;
