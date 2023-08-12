@@ -83,7 +83,7 @@ std::int8_t Stage::run() {
     }
 
     if (enableShooting) {
-        std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() + this->player_->W() / 2, this->player_->Y(), false, playerBulletMovement);
+        std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() - 4 + this->player_->W() / 2, this->player_->Y(), false, playerBulletMovement);
         bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
         renderableManager.addCollisionable(bullet);
         this->player_->resetUpdateFrameCounter();

@@ -27,46 +27,53 @@ void RenderableManager::clean() {
 }
 
 void RenderableManager::checkCollision() {
-	for (auto it1 = this->collisionables_.begin(); it1 != this->collisionables_.end();) {
-		for (auto it2 = it1 + 1; it2 != this->collisionables_.end();) {
-			engine::CollisionEntityType type1 = (*it1)->getType();
-			engine::CollisionEntityType type2 = (*it2)->getType();
+	std::vector<bool> toRemove(this->collisionables_.size(), false);
+
+	for (auto it1 = 0; it1 < this->collisionables_.size(); ++it1) {
+		for (auto it2 = it1 + 1; it2 < this->collisionables_.size(); ++it2) {
+			engine::CollisionEntityType type1 = this->collisionables_[it1]->getType();
+			engine::CollisionEntityType type2 = this->collisionables_[it2]->getType();
 			switch (type1) {
 			case engine::CollisionEntityType::PLAYER: {
-				if ((type2 == engine::CollisionEntityType::ENEMY || type2 == engine::CollisionEntityType::ENEMY_BULLET) && this->checkCollision(*it1, *it2)) {
+				if ((type2 == engine::CollisionEntityType::ENEMY || type2 == engine::CollisionEntityType::ENEMY_BULLET) && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
 					printf("Contact!");
-					it2 = this->collisionables_.erase(it2);
+					toRemove[it2] = true;
 				}
 				break;
 			}
 			case engine::CollisionEntityType::ALLY_BULLET: {
-				if (type2 == engine::CollisionEntityType::ENEMY && this->checkCollision(*it1, *it2)) {
+				if (type2 == engine::CollisionEntityType::ENEMY && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
 					printf("Contact!");
-					it1 = this->collisionables_.erase(it1);
-					it2 = this->collisionables_.erase(it2);
+					toRemove[it1] = true;
+					toRemove[it2] = true;
 				}
 				break;
 			}
 			case engine::CollisionEntityType::ENEMY: {
-				if ((type2 == engine::CollisionEntityType::PLAYER || type2 == engine::CollisionEntityType::ALLY_BULLET) && this->checkCollision(*it1, *it2)) {
+				if ((type2 == engine::CollisionEntityType::PLAYER || type2 == engine::CollisionEntityType::ALLY_BULLET) && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
 					printf("Contact!");
-					it1 = this->collisionables_.erase(it1);
-					it2 = this->collisionables_.erase(it2);
+					toRemove[it1] = true;
+					//toRemove[it2] = true;
 				}
 				break;
 			}
 			case engine::CollisionEntityType::ENEMY_BULLET:
-				if (type2 == engine::CollisionEntityType::PLAYER && this->checkCollision(*it1, *it2)) {
+				if (type2 == engine::CollisionEntityType::PLAYER && this->checkCollision(this->collisionables_[it1], this->collisionables_[it2])) {
 					printf("Contact!");
-					it1 = this->collisionables_.erase(it1);
-					it2 = this->collisionables_.erase(it2);
+					toRemove[it1] = true;
+					toRemove[it2] = true;
 				}
 				break;
 			default: { break; }
 			}
-			++it2;
 		}
-		++it1;
+	}
+
+	for (std::int16_t it = toRemove.size() - 1; it > -1; --it) {
+		if (toRemove[it]) { 
+			printf("%d should be removed!\n", it);
+			this->collisionables_.erase(this->collisionables_.begin() + it); 
+		}
 	}
 }
 
