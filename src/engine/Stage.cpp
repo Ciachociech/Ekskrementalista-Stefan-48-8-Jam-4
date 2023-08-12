@@ -52,7 +52,7 @@ std::int8_t Stage::run() {
             keyActions.pop_front();
         }
 
-        if (*keyActions.begin() == input::KeyAction::shootBullet && this->bulletFrameCounter_ > 4) {
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getBulletFrameCounter() > 4) {
             enableShooting = true;
             keyActions.pop_front();
         }
