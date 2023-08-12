@@ -165,8 +165,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\icons\game.png" />
+    <Image Include="assets\sprites\banana.png" />
+    <Image Include="assets\sprites\big-enemy.png" />
+    <Image Include="assets\sprites\broccoli.png" />
     <Image Include="assets\sprites\bulonais.png" />
+    <Image Include="assets\sprites\carrot.png" />
+    <Image Include="assets\sprites\medium-enemy.png" />
     <Image Include="assets\sprites\poop.png" />
+    <Image Include="assets\sprites\powerup-plus.png" />
+    <Image Include="assets\sprites\small-enemy.png" />
     <Image Include="assets\sprites\wip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
