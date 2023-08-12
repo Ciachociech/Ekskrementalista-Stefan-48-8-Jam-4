@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include <memory>
+
 #include "input/InputKeyboard.h"
 #include "managers/RenderableManager.h"
 #include "Player.h"
@@ -23,7 +25,7 @@ private:
     TTF_Font* font_ = NULL;
 
     // Others
-    Player player_;
+    std::shared_ptr<Player> player_;
     input::InputKeyboard keyboard;
 public:
     Stage();

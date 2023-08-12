@@ -1,29 +1,32 @@
 #ifndef ENGINE_COLLISIONABLE_H_
 #define ENGINE_COLLISIONABLE_H_
 
+#include "Renderable.h"
+
 namespace engine {
 
 enum class CollisionEntityType {
 	PLAYER = 0, ALLY_BULLET = 1, ENEMY = 2, ENEMY_BULLET = 3, GHOST_ENEMY = 6
 };
 
-class Collisionable {
+class Collisionable : public Renderable {
 private:
-	float xCenter_;
-	float yCenter_;
-	float radius_;
+	float hitboxCenterX_;
+	float hitboxCenterY_;
+	float hitboxRadius_;
 	CollisionEntityType type_;
 public:
 	Collisionable(CollisionEntityType type);
+	Collisionable(float x, float y, CollisionEntityType type);
 	virtual ~Collisionable();
 
-	float centerX();
-	float centerY();
-	float R();
+	float hitboxCenterX();
+	float hitboxCenterY();
+	float hitboxR();
 	CollisionEntityType getType();
 
-	void setCenter(float x, float y);
-	void setRadius(float radius);
+	void setHitboxCenter(float x, float y);
+	void setHitboxRadius(float radius);
 };
 
 }
