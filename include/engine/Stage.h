@@ -14,7 +14,7 @@ namespace engine {
 
 namespace {
 
-constexpr float playerMovement = 1.5f;
+constexpr float playerMovement = 2.5f;
 
 }
 
@@ -27,7 +27,6 @@ private:
     // Others
     Player player_;
     input::InputKeyboard keyboard;
-    std::uint32_t bulletFrameCounter_ = 0;
 public:
     Stage();
     virtual ~Stage();

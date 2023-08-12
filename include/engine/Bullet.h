@@ -15,7 +15,7 @@ public:
 	Bullet(float x, float y, bool isHostile, std::function<void(float& x, float& y)> movementPattern);
 	virtual ~Bullet();
 
-	void move(float x, float y) override;
+	void update(float x, float y) override;
 };
 
 }
