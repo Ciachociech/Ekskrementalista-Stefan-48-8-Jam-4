@@ -4,10 +4,13 @@ namespace managers {
 
 void RenderableManager::clean() {
 	for (auto it = this->renderables_.begin(); it != this->renderables_.end();) {
+		if (*it == NULL) { 
+			it = this->renderables_.erase(it);
+		}
 		bool isOutside = (*it)->X() < -2 * (*it)->W() || (*it)->X() > 800 + 2 * (*it)->W() ||
 			(*it)->Y() < -2 * (*it)->H() || (*it)->Y() > 800 + 2 * (*it)->H();
 		if (isOutside) {
-			delete *it;
+			it->reset();
 			it = this->renderables_.erase(it);
 		} else {
 			++it;
@@ -30,17 +33,17 @@ void RenderableManager::render() {
 	}
 }
 
-void RenderableManager::addRenderable(engine::Renderable* renderable) {
+void RenderableManager::addRenderable(std::shared_ptr<engine::Renderable> renderable) {
 	this->renderables_.push_back(renderable);
 }
 
 void RenderableManager::update() {
+	if (this->renderables_.size() > 1) {
+		this->clean();
+	}
 	//ignore first element (so now), because of player instance
 	for (auto it = ++this->renderables_.begin(); it != this->renderables_.end(); ++it) {
 		(*it)->update(0, 0);
-	}
-	if (this->renderables_.size() > 1) { 
-		this->clean(); 
 	}
 }
 

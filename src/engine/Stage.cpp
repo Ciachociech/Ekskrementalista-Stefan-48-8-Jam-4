@@ -5,11 +5,14 @@
 #include "engine/Bullet.h"
 #include "engine/Enemy.h"
 
+#include "managers/CollisionManager.h"
+
 namespace engine {
 
 namespace {
 
 //managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+managers::CollisionManager& collisionManager = managers::CollisionManager::instance();
 
 void playerBulletMovement(float& x, float& y) {
     x = 0.f;
@@ -22,7 +25,7 @@ void enemyEmptyMovement(float& x, float& y) {
 }
 }
 
-Stage::Stage() : player_(400.f, 400.f) { this->init(); }
+Stage::Stage() { this->init(); }
 
 Stage::~Stage() {}
 
@@ -57,7 +60,7 @@ std::int8_t Stage::run() {
             keyActions.pop_front();
         }
 
-        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getUpdateFrameCounter() > 12) {
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_->getUpdateFrameCounter() > 12) {
             enableShooting = true;
             keyActions.pop_front();
         }
@@ -83,13 +86,15 @@ std::int8_t Stage::run() {
     }
 
     if (enableShooting) {
-        Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+        std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() + this->player_->W() / 2, this->player_->Y(), false, playerBulletMovement);
         bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
         renderableManager.addRenderable(bullet);
-        this->player_.resetUpdateFrameCounter();
+        collisionManager.addCollisionable(bullet);
+        this->player_->resetUpdateFrameCounter();
     }
 
-    this->player_.update(movX, movY);
+    this->player_->update(movX, movY);
+    collisionManager.update();
     renderableManager.update();
 
     this->render();
@@ -99,16 +104,19 @@ std::int8_t Stage::run() {
 
 void Stage::init() {
     if (this->windowRenderer_) {
-        player_.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
+        player_ = std::make_shared<Player>(400.f, 400.f);
+        player_->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
                                 this->windowRenderer_);
 
         managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
-        renderableManager.addRenderable(&player_);
+        renderableManager.addRenderable(player_);
+        collisionManager.addCollisionable(player_);
 
         for (int it = 0; it < 16; ++it) {
-            Enemy* enemy = new Enemy(24 + 48 * (it % 16), 32, enemyEmptyMovement);
+            std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(24 + 48 * (it % 16), 32, enemyEmptyMovement);
             enemy->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
             renderableManager.addRenderable(enemy);
+            collisionManager.addCollisionable(enemy);
         }
     }
 }

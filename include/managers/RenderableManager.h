@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <SDL.h>
+
 #include "engine/Renderable.h"
 
 namespace managers {
@@ -12,7 +14,7 @@ class RenderableManager {
 private:
 	SDL_Renderer* renderer_;
 
-	std::vector<engine::Renderable*> renderables_;
+	std::vector<std::shared_ptr<engine::Renderable>> renderables_;
 
 	RenderableManager(SDL_Renderer* renderer);
 	void clean();
@@ -25,7 +27,7 @@ public:
 
 	void render();
 
-	void addRenderable(engine::Renderable* renderable);
+	void addRenderable(std::shared_ptr<engine::Renderable> renderable);
 	void update();
 };
 
