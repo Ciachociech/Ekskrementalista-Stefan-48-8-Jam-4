@@ -10,7 +10,8 @@ InputKeyboard::InputKeyboard() {}
 
 InputKeyboard::~InputKeyboard() {}
 
-std::list<KeyAction> InputKeyboard::interpretAction() {
+std::list<KeyAction> InputKeyboard::interpretSingleAction()
+{
     const std::uint8_t* keyboardStates = SDL_GetKeyboardState(NULL);
 
     std::list<KeyAction> actions;
@@ -18,26 +19,39 @@ std::list<KeyAction> InputKeyboard::interpretAction() {
     if (checkSusCombo(keyboardStates)) {}
     if (checkDogeCombo(keyboardStates)) {}
 
+    if (keyboardStates[defaultInstinctKey - scancodeShift]) {
+        actions.push_back(KeyAction::useInstinct);
+    }
+
+    //push back empty to prevent errors
+    actions.push_back(KeyAction::none);
+
+    return actions;
+}
+
+std::list<KeyAction> InputKeyboard::interpretMultipleAction()
+{
+    const std::uint8_t* keyboardStates = SDL_GetKeyboardState(NULL);
+
+    std::list<KeyAction> actions;
+
     if (keyboardStates[defaultUpKey - scancodeShift] &&
         !keyboardStates[defaultDownKey - scancodeShift]) {
         actions.push_back(KeyAction::moveUp);
     } else if (!keyboardStates[defaultUpKey - scancodeShift] &&
-               keyboardStates[defaultDownKey - scancodeShift]) {
+        keyboardStates[defaultDownKey - scancodeShift]) {
         actions.push_back(KeyAction::moveDown);
     }
     if (keyboardStates[defaultLeftKey - scancodeShift] &&
         !keyboardStates[defaultRightKey - scancodeShift]) {
         actions.push_back(KeyAction::moveLeft);
     } else if (!keyboardStates[defaultLeftKey - scancodeShift] &&
-               keyboardStates[defaultRightKey - scancodeShift]) {
+        keyboardStates[defaultRightKey - scancodeShift]) {
         actions.push_back(KeyAction::moveRight);
     }
 
     if (keyboardStates[defaultShotKey - scancodeShift]) {
         actions.push_back(KeyAction::shootBullet);
-    }
-    if (keyboardStates[defaultInstinctKey - scancodeShift]) {
-        actions.push_back(KeyAction::useInstinct);
     }
 
     //push back empty to prevent errors

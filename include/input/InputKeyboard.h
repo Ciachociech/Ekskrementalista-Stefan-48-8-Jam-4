@@ -41,7 +41,8 @@ public:
     InputKeyboard();
     virtual ~InputKeyboard();
 
-    std::list<KeyAction> interpretAction();
+    std::list<KeyAction> interpretSingleAction();
+    std::list<KeyAction> interpretMultipleAction();
 };
 
 } // namespace input
