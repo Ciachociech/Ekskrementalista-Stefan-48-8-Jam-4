@@ -3,6 +3,7 @@
 #include <list>
 
 #include "engine/Bullet.h"
+#include "engine/Enemy.h"
 
 namespace engine {
 
@@ -15,6 +16,10 @@ void playerBulletMovement(float& x, float& y) {
     y = -9.f;
 }
 
+void enemyEmptyMovement(float& x, float& y) {
+    x = 0.f;
+    y = 0.f;
+}
 }
 
 Stage::Stage() : player_(400.f, 400.f) { this->init(); }
@@ -52,7 +57,7 @@ std::int8_t Stage::run() {
             keyActions.pop_front();
         }
 
-        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getBulletFrameCounter() > 4) {
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getUpdateFrameCounter() > 12) {
             enableShooting = true;
             keyActions.pop_front();
         }
@@ -81,7 +86,7 @@ std::int8_t Stage::run() {
         Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
         bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
         renderableManager.addRenderable(bullet);
-        this->player_.resetBulletFrameCounter();
+        this->player_.resetUpdateFrameCounter();
     }
 
     this->player_.update(movX, movY);
@@ -99,6 +104,12 @@ void Stage::init() {
 
         managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
         renderableManager.addRenderable(&player_);
+
+        for (int it = 0; it < 16; ++it) {
+            Enemy* enemy = new Enemy(24 + 48 * (it % 16), 32, enemyEmptyMovement);
+            enemy->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
+            renderableManager.addRenderable(enemy);
+        }
     }
 }
 

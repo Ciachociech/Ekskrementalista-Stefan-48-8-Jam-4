@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\Bullet.cpp" />
+    <ClCompile Include="src\engine\Enemy.cpp" />
     <ClCompile Include="src\engine\Instance.cpp" />
     <ClCompile Include="src\engine\Player.cpp" />
     <ClCompile Include="src\engine\Renderable.cpp" />
@@ -149,12 +150,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Bullet.h" />
+    <ClInclude Include="include\engine\Enemy.h" />
     <ClInclude Include="include\engine\Instance.h" />
     <ClInclude Include="include\engine\Player.h" />
     <ClInclude Include="include\engine\Renderable.h" />
     <ClInclude Include="include\engine\Stage.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
     <ClInclude Include="include\managers\RenderableManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\NerkoOne-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\icons\game.png" />
+    <Image Include="assets\sprites\bulonais.png" />
+    <Image Include="assets\sprites\poop.png" />
+    <Image Include="assets\sprites\wip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -32,7 +32,7 @@ private:
     std::uint16_t sides_;
     std::uint16_t animationTime_;
     std::uint16_t currentFrame_ = 0;
-    std::uint32_t bulletFrameCounter_ = 0;
+    std::uint32_t updateFrameCounter_ = 0;
     lookAt spriteSide_;
     bool firstInit_ = true;
 
@@ -55,8 +55,8 @@ public:
     std::uint16_t W();
     std::uint16_t H();
 
-    virtual std::uint32_t getBulletFrameCounter();
-    virtual void resetBulletFrameCounter();
+    virtual std::uint32_t getUpdateFrameCounter();
+    virtual void resetUpdateFrameCounter();
 };
 
 } // namespace engine
