@@ -2,7 +2,10 @@
 
 namespace engine {
 
-Player::Player(float x, float y): Renderable(x, y), Collisionable(centerX() + W() / 2, centerY() + H() / 2, 8, CollisionEntityType::PLAYER) {}
+Player::Player(float x, float y): Renderable(x, y), Collisionable(CollisionEntityType::PLAYER) {
+    this->setCenter(x + (W() / 2), y + (H() / 2));
+    this->setRadius(12);
+}
 
 Player::~Player() {}
 
@@ -25,9 +28,51 @@ void Player::update(float x, float y) {
 	if (this->Y() + moveY < 0.f) { moveY = -this->Y(); }
 	else if (this->Y() + this->H() + moveY > 800.f) { moveY = 800 - this->Y() - this->H(); }
 	Renderable::update(moveX, moveY);
+    this->setCenter(X() + W() / 2 + moveX, Y() + H() / 2 + moveY);
 
 	this->velX_ *= 0.8;
 	this->velY_ *= 0.8;
+}
+
+void Player::render(int cameraX, int cameraY, SDL_Renderer* renderer) {
+    Renderable::render(cameraX, cameraY, renderer);
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    const float diameter = (R() * 2);
+
+    int32_t x = (R() - 1);
+    int32_t y = 0;
+    int32_t tx = 1;
+    int32_t ty = 1;
+    int32_t error = (tx - diameter);
+
+    while (x >= y)
+    {
+        //  Each of the following renders an octant of the circle
+        SDL_RenderDrawPoint(renderer, centerX() + x, centerY() - y);
+        SDL_RenderDrawPoint(renderer, centerX() + x, centerY() + y);
+        SDL_RenderDrawPoint(renderer, centerX() - x, centerY() - y);
+        SDL_RenderDrawPoint(renderer, centerX() - x, centerY() + y);
+        SDL_RenderDrawPoint(renderer, centerX() + y, centerY() - x);
+        SDL_RenderDrawPoint(renderer, centerX() + y, centerY() + x);
+        SDL_RenderDrawPoint(renderer, centerX() - y, centerY() - x);
+        SDL_RenderDrawPoint(renderer, centerX() - y, centerY() + x);
+
+        if (error <= 0)
+        {
+            ++y;
+            error += ty;
+            ty += 2;
+        }
+
+        if (error > 0)
+        {
+            --x;
+            tx += 2;
+            error += (tx - diameter);
+        }
+    }
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }
 
 } // namespace engine

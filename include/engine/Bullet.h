@@ -16,6 +16,7 @@ public:
 	virtual ~Bullet();
 
 	void update(float x, float y) override;
+	void render(int cameraX, int cameraY, SDL_Renderer* renderer) override;
 };
 
 }
