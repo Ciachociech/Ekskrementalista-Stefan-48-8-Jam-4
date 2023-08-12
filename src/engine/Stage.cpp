@@ -30,6 +30,7 @@ std::int8_t Stage::run() {
 
     float movX = 0;
     float movY = 0;
+    bool enableShooting = false;
 
     managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
 
@@ -58,10 +59,8 @@ std::int8_t Stage::run() {
                 keyActions.pop_front();
             }
 
-            if (*keyActions.begin() == input::KeyAction::shootBullet) {
-                Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
-                bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
-                renderableManager.addRenderable(bullet);
+            if (*keyActions.begin() == input::KeyAction::shootBullet && this->bulletFrameCounter_ > 4) {
+                enableShooting = true;
                 keyActions.pop_front();
             }
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
@@ -72,6 +71,15 @@ std::int8_t Stage::run() {
         }
         }
     }
+
+    if (enableShooting) {
+        Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+        bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+        renderableManager.addRenderable(bullet);
+        this->bulletFrameCounter_ = 0;
+    }
+
+    this->bulletFrameCounter_++;
 
     this->player_.move(movX, movY);
     renderableManager.move();
