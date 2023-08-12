@@ -34,4 +34,13 @@ void Player::update(float x, float y) {
 	this->velY_ *= 0.8;
 }
 
+bool Player::damage(std::int8_t hpDamage) {
+	if (hpDamage < 0) { 
+		this->powerup_ += 1;
+		return true;
+	}
+	this->powerup_ = this->powerup_ > 20 ? this->powerup_ - 20 : 0;
+	return Collisionable::damage(hpDamage);
+}
+
 } // namespace engine

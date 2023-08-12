@@ -15,6 +15,7 @@ private:
 	float hitboxCenterY_;
 	float hitboxRadius_;
 	CollisionEntityType type_;
+	std::int8_t hp_;
 public:
 	Collisionable(CollisionEntityType type);
 	Collisionable(float x, float y, CollisionEntityType type);
@@ -24,9 +25,12 @@ public:
 	float hitboxCenterY();
 	float hitboxR();
 	CollisionEntityType getType();
+	std::int8_t getHp();
 
 	void setHitboxCenter(float x, float y);
 	void setHitboxRadius(float radius);
+
+	virtual bool damage(std::int8_t hpDamage);
 };
 
 }
