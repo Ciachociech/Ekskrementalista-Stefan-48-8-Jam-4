@@ -26,7 +26,6 @@ private:
 
     // Others
     Player player_;
-    std::vector<Bullet> bullets{};
     input::InputKeyboard keyboard;
 
 public:

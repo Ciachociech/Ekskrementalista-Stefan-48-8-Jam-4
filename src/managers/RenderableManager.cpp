@@ -7,6 +7,7 @@ void RenderableManager::clean() {
 		bool isOutside = (*it)->X() < -2 * (*it)->W() || (*it)->X() > 800 + 2 * (*it)->W() ||
 			(*it)->Y() < -2 * (*it)->H() || (*it)->Y() > 800 + 2 * (*it)->H();
 		if (isOutside) {
+			delete *it;
 			it = this->renderables_.erase(it);
 		} else {
 			++it;
@@ -38,7 +39,9 @@ void RenderableManager::move() {
 	for (auto it = ++this->renderables_.begin(); it != this->renderables_.end(); ++it) {
 		(*it)->move(0, 0);
 	}
-	if (this->renderables_.size() > 1) { this->clean(); }
+	if (this->renderables_.size() > 1) { 
+		this->clean(); 
+	}
 }
 
 }

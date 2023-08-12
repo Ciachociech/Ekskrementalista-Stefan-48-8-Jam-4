@@ -59,11 +59,9 @@ std::int8_t Stage::run() {
             }
 
             if (*keyActions.begin() == input::KeyAction::shootBullet) {
-                //Bullet bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
-                Bullet bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
-                bullet.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
-                bullets.push_back(bullet);
-                renderableManager.addRenderable(&bullet);
+                Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+                bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+                renderableManager.addRenderable(bullet);
                 keyActions.pop_front();
             }
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
@@ -95,7 +93,7 @@ void Stage::init() {
 
 void Stage::render() { 
     managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
-    renderableManager.render(); 
+    renderableManager.render();
 }
 
 } // namespace engine
