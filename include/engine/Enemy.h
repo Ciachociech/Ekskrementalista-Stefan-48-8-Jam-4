@@ -15,6 +15,7 @@ public:
 	virtual ~Enemy();
 
 	void update(float x, float y) override;
+	bool damage(std::int8_t hpDamage) override;
 };
 
 }

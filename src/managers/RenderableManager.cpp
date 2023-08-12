@@ -37,15 +37,15 @@ void RenderableManager::checkCollision() {
 				switch (type1) {
 					case engine::CollisionEntityType::PLAYER: {
 						if (type2 == engine::CollisionEntityType::ENEMY) {
-							//it1.damage(1)
+							this->collisionables_[it1]->damage(1);
 							toRemove[it2] = true;
 						}
 						else if (type2 == engine::CollisionEntityType::POWERUP) {
-							//it1.damage(-1)
+							this->collisionables_[it1]->damage(-1);
 							toRemove[it2] = true;
 						}
 						else if (type2 == engine::CollisionEntityType::BOSS) {
-							//it1.damage(1)
+							this->collisionables_[it1]->damage(1);
 						}
 						break;
 					}
@@ -57,7 +57,7 @@ void RenderableManager::checkCollision() {
 						}
 						else if (type2 == engine::CollisionEntityType::BOSS) {
 							toRemove[it1] = true;
-							//it2.damage(1)
+							this->collisionables_[it2]->damage(1);
 						}
 						break;
 					}
@@ -65,7 +65,7 @@ void RenderableManager::checkCollision() {
 					case engine::CollisionEntityType::ENEMY: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
 							toRemove[it1] = true;
-							//it2.damage(1)
+							this->collisionables_[it2]->damage(1);
 						} 
 						else if (type2 == engine::CollisionEntityType::ALLY_BULLET) {
 							toRemove[it1] = true;
@@ -76,7 +76,7 @@ void RenderableManager::checkCollision() {
 
 					case engine::CollisionEntityType::POWERUP: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							//it1.damage(-1)
+							this->collisionables_[it1]->damage(-1);
 							toRemove[it2] = true;
 						}
 						break;
@@ -84,7 +84,7 @@ void RenderableManager::checkCollision() {
 
 					case engine::CollisionEntityType::BOSS: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							//it1.damage(-1)
+							this->collisionables_[it1]->damage(1);
 						}
 						break;
 					}

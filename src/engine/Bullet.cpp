@@ -18,6 +18,10 @@ void Bullet::update(float x, float y) {
 	this->setHitboxCenter(X() + W() / 2, Y() + H() / 2);
 }
 
+bool Bullet::damage(std::int8_t hpDamage) {
+	return Collisionable::damage(hpDamage);
+}
+
 
 
 }
