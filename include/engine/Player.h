@@ -9,7 +9,7 @@ namespace engine {
 
 namespace {
 
-constexpr float maxSpeed = 2.5f;
+constexpr float maxSpeed = 4.5f;
 
 }
 
@@ -23,7 +23,7 @@ public:
     Player(float x, float y);
     virtual ~Player();
 
-    void move(float x, float y) override;
+    void update(float x, float y) override;
 };
 
 } // namespace engine

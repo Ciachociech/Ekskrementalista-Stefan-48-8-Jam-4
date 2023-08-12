@@ -34,10 +34,10 @@ void RenderableManager::addRenderable(engine::Renderable* renderable) {
 	this->renderables_.push_back(renderable);
 }
 
-void RenderableManager::move() {
+void RenderableManager::update() {
 	//ignore first element (so now), because of player instance
 	for (auto it = ++this->renderables_.begin(); it != this->renderables_.end(); ++it) {
-		(*it)->move(0, 0);
+		(*it)->update(0, 0);
 	}
 	if (this->renderables_.size() > 1) { 
 		this->clean(); 

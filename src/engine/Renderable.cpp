@@ -69,9 +69,10 @@ void Renderable::render(int x, int y, SDL_Renderer* renderer) {
     SDL_RenderCopy(renderer, this->texture_, &srcRenderQuad, &dstRenderQuad);
 }
 
-void Renderable::move(float x, float y) {
+void Renderable::update(float x, float y) {
     this->x_ += x;
     this->y_ += y;
+    this->bulletFrameCounter_++;
 }
 
 void Renderable::setSpriteSide(lookAt newSide) { this->spriteSide_ = newSide; }
@@ -83,5 +84,9 @@ float Renderable::Y() { return this->y_; }
 std::uint16_t Renderable::W() { return this->w_; }
 
 std::uint16_t Renderable::H() { return this->h_; }
+
+std::uint32_t Renderable::getBulletFrameCounter() { return this->bulletFrameCounter_; }
+
+void Renderable::resetBulletFrameCounter() { this->bulletFrameCounter_ = 0; }
 
 } // namespace engine

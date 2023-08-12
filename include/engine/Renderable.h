@@ -32,6 +32,7 @@ private:
     std::uint16_t sides_;
     std::uint16_t animationTime_;
     std::uint16_t currentFrame_ = 0;
+    std::uint32_t bulletFrameCounter_ = 0;
     lookAt spriteSide_;
     bool firstInit_ = true;
 
@@ -46,13 +47,16 @@ public:
     void free();
     virtual void render(int cameraX, int cameraY, SDL_Renderer* renderer);
 
-    virtual void move(float x, float y);
+    virtual void update(float x, float y);
     void setSpriteSide(lookAt newSide);
 
     float X();
     float Y();
     std::uint16_t W();
     std::uint16_t H();
+
+    virtual std::uint32_t getBulletFrameCounter();
+    virtual void resetBulletFrameCounter();
 };
 
 } // namespace engine

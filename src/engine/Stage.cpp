@@ -12,7 +12,7 @@ namespace {
 
 void playerBulletMovement(float& x, float& y) {
     x = 0.f;
-    y = -6.f;
+    y = -9.f;
 }
 
 }
@@ -59,7 +59,7 @@ std::int8_t Stage::run() {
                 keyActions.pop_front();
             }
 
-            if (*keyActions.begin() == input::KeyAction::shootBullet && this->bulletFrameCounter_ > 4) {
+            if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_.getBulletFrameCounter() > 4) {
                 enableShooting = true;
                 keyActions.pop_front();
             }
@@ -76,13 +76,11 @@ std::int8_t Stage::run() {
         Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
         bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
         renderableManager.addRenderable(bullet);
-        this->bulletFrameCounter_ = 0;
+        this->player_.resetBulletFrameCounter();
     }
 
-    this->bulletFrameCounter_++;
-
-    this->player_.move(movX, movY);
-    renderableManager.move();
+    this->player_.update(movX, movY);
+    renderableManager.update();
 
     this->render();
 

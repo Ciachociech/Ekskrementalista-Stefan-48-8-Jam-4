@@ -6,7 +6,7 @@ Player::Player(float x, float y): Renderable(x, y) {}
 
 Player::~Player() {}
 
-void Player::move(float x, float y) {
+void Player::update(float x, float y) {
 	this->accX_ = x;
 	this->accY_ = y;
 
@@ -24,7 +24,7 @@ void Player::move(float x, float y) {
 	else if (this->X() + this->W() + moveX > 800.f) { moveX = 800 - this->X() - this->W(); }
 	if (this->Y() + moveY < 0.f) { moveY = -this->Y(); }
 	else if (this->Y() + this->H() + moveY > 800.f) { moveY = 800 - this->Y() - this->H(); }
-	Renderable::move(moveX, moveY);
+	Renderable::update(moveX, moveY);
 
 	this->velX_ *= 0.8;
 	this->velY_ *= 0.8;

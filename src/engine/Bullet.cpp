@@ -6,12 +6,12 @@ Bullet::Bullet(float x, float y, bool isHostile, std::function<void(float& x, fl
 
 Bullet::~Bullet() {}
 
-void Bullet::move(float x, float y) {
+void Bullet::update(float x, float y) {
 	float movX = 0;
 	float movY = 0;
 
 	this->movementPattern_(movX, movY);
-	Renderable::move(movX, movY);
+	Renderable::update(movX, movY);
 }
 
 

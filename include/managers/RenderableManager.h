@@ -26,7 +26,7 @@ public:
 	void render();
 
 	void addRenderable(engine::Renderable* renderable);
-	void move();
+	void update();
 };
 
 }
