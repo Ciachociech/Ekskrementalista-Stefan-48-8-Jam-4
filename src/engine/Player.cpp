@@ -2,7 +2,7 @@
 
 namespace engine {
 
-Player::Player(float x, float y): Renderable(x, y) {}
+Player::Player(float x, float y): Renderable(x, y), Collisionable(centerX() + W() / 2, centerY() + H() / 2, 8, CollisionEntityType::PLAYER) {}
 
 Player::~Player() {}
 

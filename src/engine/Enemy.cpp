@@ -4,7 +4,7 @@ namespace enemy {
 
 }
 
-engine::Enemy::Enemy(float x, float y, std::function<void(float& x, float& y)> movementPattern) : Renderable(x, y), movementPattern_(movementPattern) {}
+engine::Enemy::Enemy(float x, float y, std::function<void(float& x, float& y)> movementPattern) : Renderable(x, y), Collisionable(centerX() + W() / 2, centerY() + H() / 2, H() / 2, CollisionEntityType::ENEMY), movementPattern_(movementPattern) {}
 
 engine::Enemy::~Enemy() {}
 

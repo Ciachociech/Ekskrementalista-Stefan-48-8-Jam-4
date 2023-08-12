@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\Bullet.cpp" />
+    <ClCompile Include="src\engine\Collisionable.cpp" />
     <ClCompile Include="src\engine\Enemy.cpp" />
     <ClCompile Include="src\engine\Instance.cpp" />
     <ClCompile Include="src\engine\Player.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Bullet.h" />
+    <ClInclude Include="include\engine\Collisionable.h" />
     <ClInclude Include="include\engine\Enemy.h" />
     <ClInclude Include="include\engine\Instance.h" />
     <ClInclude Include="include\engine\Player.h" />
