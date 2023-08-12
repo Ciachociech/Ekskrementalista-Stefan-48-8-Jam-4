@@ -4,11 +4,10 @@
 #include <functional>
 
 #include "Collisionable.h"
-#include "Renderable.h"
 
 namespace engine {
 
-class Bullet : public Renderable, public Collisionable {
+class Bullet : public Collisionable {
 private:
 	std::function<void(float& x, float& y)> movementPattern_;
 public:

@@ -144,7 +144,6 @@
     <ClCompile Include="src\engine\Stage.cpp" />
     <ClCompile Include="src\input\InputKeyboard.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\managers\CollisionManager.cpp" />
     <ClCompile Include="src\managers\RenderableManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +158,6 @@
     <ClInclude Include="include\engine\Renderable.h" />
     <ClInclude Include="include\engine\Stage.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
-    <ClInclude Include="include\managers\CollisionManager.h" />
     <ClInclude Include="include\managers\RenderableManager.h" />
   </ItemGroup>
   <ItemGroup>

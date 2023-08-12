@@ -2,23 +2,25 @@
 
 namespace engine {
 
-Collisionable::Collisionable(CollisionEntityType type) : type_(type) {}
+Collisionable::Collisionable(CollisionEntityType type) : Renderable(0, 0), type_(type) {}
+
+Collisionable::Collisionable(float x, float y, CollisionEntityType type) : Renderable(x, y), type_(type) {}
 
 Collisionable::~Collisionable() {}
 
-float Collisionable::centerX() { return this->xCenter_; }
+float Collisionable::hitboxCenterX() { return this->hitboxCenterX_; }
 
-float Collisionable::centerY() { return this->yCenter_; }
+float Collisionable::hitboxCenterY() { return this->hitboxCenterY_; }
 
-float Collisionable::R() { return this->radius_; }
+float Collisionable::hitboxR() { return this->hitboxRadius_; }
 
 CollisionEntityType Collisionable::getType() { return this->type_; }
 
-void Collisionable::setCenter(float x, float y) {
-	this->xCenter_ = x;
-	this->yCenter_ = y;
+void Collisionable::setHitboxCenter(float x, float y) {
+	this->hitboxCenterX_ = x;
+	this->hitboxCenterY_ = y;
 }
  
-void Collisionable::setRadius(float radius) { this->radius_ = radius; }
+void Collisionable::setHitboxRadius(float radius) { this->hitboxRadius_ = radius; }
 
 }

@@ -6,6 +6,7 @@
 
 #include <SDL.h>
 
+#include "engine/Collisionable.h"
 #include "engine/Renderable.h"
 
 namespace managers {
@@ -14,10 +15,14 @@ class RenderableManager {
 private:
 	SDL_Renderer* renderer_;
 
+	std::vector<std::shared_ptr<engine::Collisionable>> collisionables_;
 	std::vector<std::shared_ptr<engine::Renderable>> renderables_;
 
 	RenderableManager(SDL_Renderer* renderer);
+
 	void clean();
+	void checkCollision();
+	bool checkCollision(std::shared_ptr<engine::Collisionable> lhs, std::shared_ptr<engine::Collisionable> rhs);
 public:
 	RenderableManager(const RenderableManager& /*original*/) = delete;
 	RenderableManager& operator=(const RenderableManager& /*object*/) = delete;
@@ -28,6 +33,7 @@ public:
 	void render();
 
 	void addRenderable(std::shared_ptr<engine::Renderable> renderable);
+	void addCollisiionable(std::shared_ptr<engine::Collisionable> collisionable);
 	void update();
 };
 
