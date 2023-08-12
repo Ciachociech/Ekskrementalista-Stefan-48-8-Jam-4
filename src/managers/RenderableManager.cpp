@@ -42,6 +42,8 @@ void RenderableManager::move() {
 	if (this->renderables_.size() > 1) { 
 		this->clean(); 
 	}
+
+	printf("Renderable number: %d\n", this->renderables_.size());
 }
 
 }

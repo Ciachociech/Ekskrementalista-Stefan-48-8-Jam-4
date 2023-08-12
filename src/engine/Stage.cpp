@@ -12,7 +12,12 @@ namespace {
 
 void playerBulletMovement(float& x, float& y) {
     x = 0.f;
-    y = -6.f;
+    y = -9.f;
+}
+
+void enemyBulletStraightSlowMovement(float& x, float& y) {
+    x = 0.f;
+    y = 5.f;
 }
 
 }
@@ -72,14 +77,30 @@ std::int8_t Stage::run() {
         }
     }
 
+    if (this->enemyBulletFrameCounter_ > 12) {
+        for (int it = 0; it < 32; ++it) {
+            Bullet* bullet = new Bullet(24 + 48 * (it % 16), 64 + 64 * (it / 16), true, enemyBulletStraightSlowMovement);
+            bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
+            renderableManager.addRenderable(bullet);
+            enemyBulletFrameCounter_ = 0;
+        }
+    }
+
     if (enableShooting) {
-        Bullet* bullet = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
-        bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
-        renderableManager.addRenderable(bullet);
+        Bullet* bullet1 = new Bullet(this->player_.X() + (this->player_.W() / 2) - 12, this->player_.Y(), false, playerBulletMovement);
+        Bullet* bullet2 = new Bullet(this->player_.X() + (this->player_.W() / 2) + 12, this->player_.Y(), false, playerBulletMovement);
+        Bullet* bullet3 = new Bullet(this->player_.X() + this->player_.W() / 2, this->player_.Y(), false, playerBulletMovement);
+        bullet1->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+        bullet2->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+        bullet3->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+        renderableManager.addRenderable(bullet1);
+        renderableManager.addRenderable(bullet2);
+        renderableManager.addRenderable(bullet3);
         this->bulletFrameCounter_ = 0;
     }
 
     this->bulletFrameCounter_++;
+    this->enemyBulletFrameCounter_++;
 
     this->player_.move(movX, movY);
     renderableManager.move();
@@ -91,11 +112,17 @@ std::int8_t Stage::run() {
 
 void Stage::init() {
     if (this->windowRenderer_) {
+        managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+        
         player_.loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
                                 this->windowRenderer_);
-
-        managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
         renderableManager.addRenderable(&player_);
+
+        for (int it = 0; it < 32; ++it) {
+            Renderable* bullet = new Renderable(24  + 48 * (it % 16), 32 + 64 * (it / 16));
+            bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
+            renderableManager.addRenderable(bullet);
+        }
     }
 }
 
