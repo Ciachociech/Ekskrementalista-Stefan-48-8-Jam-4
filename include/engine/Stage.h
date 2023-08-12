@@ -27,7 +27,7 @@ private:
     // Others
     Player player_;
     input::InputKeyboard keyboard;
-
+    std::uint32_t bulletFrameCounter_ = 0;
 public:
     Stage();
     virtual ~Stage();
