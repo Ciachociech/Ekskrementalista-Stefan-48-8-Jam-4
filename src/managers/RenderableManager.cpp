@@ -291,41 +291,6 @@ void RenderableManager::update() {
 				enemy->setHitboxRadius(enemy->W() / 2);
 				enemy->damage(1 - 2 * (1 + enemy_type) * (1 + enemy_type));
 			}
-
-			firingRate = 20;
-			if ((*it)->getUpdateFrameCounter() < 7200) { firingRate = 60; }
-			else if ((*it)->getUpdateFrameCounter() < 9000) { firingRate = 45; }
-			else if ((*it)->getUpdateFrameCounter() < 12000) { firingRate = 30; }
-
-			if ((*it)->getUpdateFrameCounter() > 5400 && (*it)->getUpdateFrameCounter() % firingRate == 2) {
-				std::uint8_t enemy_type = 11 * (7 + (*it)->getUpdateFrameCounter()) * rand() % 3;
-				std::string enemy_model;
-				switch (enemy_type) {
-				case 0: { enemy_model = "assets/sprites/small-enemy.png"; break; }
-				case 1: { enemy_model = "assets/sprites/medium-enemy.png"; break; }
-				case 2: { enemy_model = "assets/sprites/big-enemy.png"; break; }
-				default: { break; }
-				}
-				enemy = std::make_shared<engine::Enemy>(0, 100 + rand() * (*it)->getUpdateFrameCounter() % (700 - (32 + 16 * enemy_type)), enemy_type == 0 ? enemySmallLeftToRightMovement : (enemy_type == 1 ? enemyMediumLeftToRightMovement : enemyBigLeftToRightMovement));
-				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
-				enemy->setHitboxRadius(enemy->W() / 2);
-				enemy->damage(1 - 2 * (1 + enemy_type) * (1 + enemy_type));
-			}
-
-			if ((*it)->getUpdateFrameCounter() > 5400 && (*it)->getUpdateFrameCounter() % firingRate == 3) {
-				std::uint8_t enemy_type = 11 * (7 + (*it)->getUpdateFrameCounter()) * rand() % 3;
-				std::string enemy_model;
-				switch (enemy_type) {
-				case 0: { enemy_model = "assets/sprites/small-enemy.png"; break; }
-				case 1: { enemy_model = "assets/sprites/medium-enemy.png"; break; }
-				case 2: { enemy_model = "assets/sprites/big-enemy.png"; break; }
-				default: { break; }
-				}
-				enemy = std::make_shared<engine::Enemy>(800 - (32 + 16 * enemy_type), 100 + rand() * (*it)->getUpdateFrameCounter() % (700 - (32 + 16 * enemy_type)), enemy_type == 0 ? enemySmallRightToLeftMovement : (enemy_type == 1 ? enemyMediumRightToLeftMovement : enemyBigRightToLeftMovement));
-				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
-				enemy->setHitboxRadius(enemy->W() / 2);
-				enemy->damage(1 - 2 * (1 + enemy_type) * (1 + enemy_type));
-			}
 		}
 	}
 	

@@ -31,7 +31,7 @@ private:
     float scaleY_;
     std::uint16_t frames_;
     std::uint16_t sides_;
-    std::uint16_t animationTime_;
+    std::uint16_t animationTime_ = 1;
     std::uint16_t currentFrame_ = 0;
     std::uint32_t updateFrameCounter_ = 0;
     lookAt spriteSide_;

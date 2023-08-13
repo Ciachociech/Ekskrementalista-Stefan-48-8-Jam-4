@@ -32,6 +32,8 @@ private:
     input::InputKeyboard keyboard;
     void renderText();
     void renderHearts();
+    void waitToStart();
+    bool isWaitingToStart = true;
 public:
     Stage();
     virtual ~Stage();

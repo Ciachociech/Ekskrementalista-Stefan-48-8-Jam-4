@@ -65,7 +65,7 @@ bool Renderable::loadFromText(int alignX, std::string textureText, SDL_Color tex
         return false;
     }
 
-    this->w_ = surface->w / frames_;
+    this->w_ = surface->w;
     this->h_ = surface->h;
     if (!isLeftside) { this->x_ = alignX - this->w_; }
 

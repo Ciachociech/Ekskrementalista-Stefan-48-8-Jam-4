@@ -16,8 +16,8 @@ enum class KeyAction {
     moveRight,
     shootBullet,
     useInstinct,
-    changeLanguage
-};
+    changeLanguage,
+    startGame
 
 const SDL_Keycode defaultUpKey = SDLK_w;
 const SDL_Keycode defaultDownKey = SDLK_s;
