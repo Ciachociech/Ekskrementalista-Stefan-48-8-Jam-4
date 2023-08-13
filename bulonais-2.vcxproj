@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\Boss.cpp" />
     <ClCompile Include="src\engine\Bullet.cpp" />
     <ClCompile Include="src\engine\Collisionable.cpp" />
     <ClCompile Include="src\engine\Enemy.cpp" />
@@ -151,6 +152,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\engine\Boss.h" />
     <ClInclude Include="include\engine\Bullet.h" />
     <ClInclude Include="include\engine\Collisionable.h" />
     <ClInclude Include="include\engine\Enemy.h" />
@@ -176,6 +178,7 @@
     <Image Include="assets\sprites\medium-enemy.png" />
     <Image Include="assets\sprites\poop.png" />
     <Image Include="assets\sprites\powerup-plus.png" />
+    <Image Include="assets\sprites\skrobella.png" />
     <Image Include="assets\sprites\small-enemy.png" />
     <Image Include="assets\sprites\wip.png" />
   </ItemGroup>
