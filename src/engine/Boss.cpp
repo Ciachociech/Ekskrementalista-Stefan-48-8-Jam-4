@@ -3,7 +3,15 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "managers/ScoreManager.h"
+
 namespace engine {
+
+namespace {
+	
+managers::ScoreManager& scoreManager = managers::ScoreManager::instance();
+
+}
 
 Boss::Boss(float x, float y, std::function<void(float& x, float& y)> movementPattern) : Collisionable(x, y, CollisionEntityType::BOSS), movementPattern_(movementPattern) {}
 
@@ -21,6 +29,7 @@ void Boss::update(float x, float y) {
 	}
 
 	Renderable::update(moveX, moveY);
+	scoreManager.increaseScore(1);
 
 	this->setHitboxCenter(X() + W() / 2, Y() + H() / 2);
 	this->powerupCooldown_++;
@@ -32,6 +41,7 @@ bool Boss::damage(std::int8_t hpDamage) {
 		return true;
 	}
 	return false;
+	scoreManager.increaseScore(10 * scoreManager.getMultiplier());
 }
 
 }
