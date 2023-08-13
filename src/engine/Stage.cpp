@@ -14,6 +14,14 @@ namespace {
 
 }
 
+void Stage::renderHearts() {
+    for (int it = 0; it < this->player_->getHp(); ++it) {
+        std::shared_ptr<Renderable> heart = std::make_shared<Renderable>(1000.f + 42 * it, 0.f);
+        heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
+        heart->render(0, 0, this->windowRenderer_);
+    }
+}
+
 Stage::Stage() { this->init(); }
 
 Stage::~Stage() {}
@@ -128,6 +136,7 @@ void Stage::init() {
 void Stage::render() { 
     managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
     renderableManager.render();
+    renderHearts();
 }
 
 } // namespace engine
