@@ -144,6 +144,7 @@
     <ClCompile Include="src\engine\Powerup.cpp" />
     <ClCompile Include="src\engine\Renderable.cpp" />
     <ClCompile Include="src\engine\Stage.cpp" />
+    <ClCompile Include="src\engine\Text.cpp" />
     <ClCompile Include="src\input\InputKeyboard.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\RenderableManager.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="include\engine\Powerup.h" />
     <ClInclude Include="include\engine\Renderable.h" />
     <ClInclude Include="include\engine\Stage.h" />
+    <ClInclude Include="include\engine\Text.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
     <ClInclude Include="include\managers\RenderableManager.h" />
     <ClInclude Include="include\utils\MovementPatterns.h" />

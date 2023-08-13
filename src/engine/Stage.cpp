@@ -4,6 +4,7 @@
 
 #include "engine/Boss.h"
 #include "engine/Bullet.h"
+#include "engine/Text.h"
 #include "utils/MovementPatterns.h"
 
 namespace engine {
@@ -14,9 +15,28 @@ namespace {
 
 }
 
+void Stage::renderText() {
+    SDL_Color clr;
+    clr.r = 255;
+    clr.g = 255;
+    clr.b = 255;
+    clr.a = 255;
+    std::shared_ptr<Text> lifeText = std::make_shared<Text>(850.f, 36.f);
+    lifeText->loadFromText("Lifes: ", clr, this->windowRenderer_, this->font_);
+    lifeText->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 100.f);
+    scoreText1->loadFromText("Power lvl: ", clr, this->windowRenderer_, this->font_);
+    scoreText1->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 100.f, false);
+    scoreText2->loadFromText(std::to_string(1 + this->player_->getPowerup() / 20) + " (" + (this->player_->getPowerup() >= 80 ? "MAX" : std::to_string(this->player_->getPowerup() % 20) + "/20") + ")", clr, this->windowRenderer_, this->font_);
+    scoreText2->render(0, 0, this->windowRenderer_);
+}
+
 void Stage::renderHearts() {
     for (int it = 0; it < this->player_->getHp(); ++it) {
-        std::shared_ptr<Renderable> heart = std::make_shared<Renderable>(1000.f + 42 * it, 0.f);
+        std::shared_ptr<Renderable> heart = std::make_shared<Renderable>(950.f + 42 * it, 32.f);
         heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
         heart->render(0, 0, this->windowRenderer_);
     }
@@ -136,6 +156,7 @@ void Stage::init() {
 void Stage::render() { 
     managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
     renderableManager.render();
+    renderText();
     renderHearts();
 }
 
