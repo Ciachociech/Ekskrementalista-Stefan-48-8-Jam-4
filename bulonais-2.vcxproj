@@ -148,6 +148,7 @@
     <ClCompile Include="src\input\InputKeyboard.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\RenderableManager.cpp" />
+    <ClCompile Include="src\managers\ScoreManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -165,6 +166,7 @@
     <ClInclude Include="include\engine\Text.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
     <ClInclude Include="include\managers\RenderableManager.h" />
+    <ClInclude Include="include\managers\ScoreManager.h" />
     <ClInclude Include="include\utils\MovementPatterns.h" />
   </ItemGroup>
   <ItemGroup>

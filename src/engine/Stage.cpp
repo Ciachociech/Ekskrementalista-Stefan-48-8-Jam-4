@@ -5,6 +5,7 @@
 #include "engine/Boss.h"
 #include "engine/Bullet.h"
 #include "engine/Text.h"
+#include "managers/ScoreManager.h"
 #include "utils/MovementPatterns.h"
 
 namespace engine {
@@ -12,6 +13,7 @@ namespace engine {
 namespace {
 
 //managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+managers::ScoreManager& scoreManager = managers::ScoreManager::instance();
 
 }
 
@@ -25,12 +27,20 @@ void Stage::renderText() {
     lifeText->loadFromText("Lifes: ", clr, this->windowRenderer_, this->font_);
     lifeText->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 100.f);
-    scoreText1->loadFromText("Power lvl: ", clr, this->windowRenderer_, this->font_);
+    std::shared_ptr<Text> powerText1 = std::make_shared<Text>(850.f, 100.f);
+    powerText1->loadFromText("Power lvl: ", clr, this->windowRenderer_, this->font_);
+    powerText1->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> powerText2 = std::make_shared<Text>(1150.f, 100.f, false);
+    powerText2->loadFromText(std::to_string(1 + this->player_->getPowerup() / 10) + " (" + (this->player_->getPowerup() >= 40 ? "MAX" : std::to_string(this->player_->getPowerup() % 10) + "/10") + ")", clr, this->windowRenderer_, this->font_);
+    powerText2->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 164.f);
+    scoreText1->loadFromText("Score: ", clr, this->windowRenderer_, this->font_);
     scoreText1->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 100.f, false);
-    scoreText2->loadFromText(std::to_string(1 + this->player_->getPowerup() / 20) + " (" + (this->player_->getPowerup() >= 80 ? "MAX" : std::to_string(this->player_->getPowerup() % 20) + "/20") + ")", clr, this->windowRenderer_, this->font_);
+    std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
+    scoreText2->loadFromText((scoreManager.getScore() == 0 ? "" : std::to_string(scoreManager.getScore())) + "0", clr, this->windowRenderer_, this->font_);
     scoreText2->render(0, 0, this->windowRenderer_);
 }
 
@@ -42,7 +52,10 @@ void Stage::renderHearts() {
     }
 }
 
-Stage::Stage() { this->init(); }
+Stage::Stage() { 
+    this->init(); 
+    //Boss::score = 0; 
+}
 
 Stage::~Stage() {}
 
@@ -77,7 +90,7 @@ std::int8_t Stage::run() {
             keyActions.pop_front();
         }
 
-        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_->getUpdateFrameCounter() > (this->player_->getPowerup() < 20 ? 12 : this->player_->getPowerup() < 60 ? 6 : 4)) {
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_->getUpdateFrameCounter() > (this->player_->getPowerup() < 10 ? 12 : this->player_->getPowerup() < 30 ? 6 : 4)) {
             enableShooting = true;
             keyActions.pop_front();
         }
@@ -103,15 +116,15 @@ std::int8_t Stage::run() {
     }
 
     if (enableShooting) {
-        if (this->player_->getPowerup() < 40 || this->player_->getPowerup() >= 80) {
+        if (this->player_->getPowerup() < 20 || this->player_->getPowerup() >= 40) {
             std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() - 4 + this->player_->W() / 2, this->player_->Y(), playerBulletCenterMovement);
             bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
             bullet->setHitboxRadius(bullet->W() / 2);
             renderableManager.addCollisionable(bullet);
         }
-        if (this->player_->getPowerup() >= 40) {
-            std::shared_ptr<Bullet> bullet1 = std::make_shared<Bullet>(this->player_->X() - 16 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 80 ? playerBulletCenterMovement : playerBulletLeftMovement);
-            std::shared_ptr<Bullet> bullet2 = std::make_shared<Bullet>(this->player_->X() + 8 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 80 ? playerBulletCenterMovement : playerBulletRightMovement);
+        if (this->player_->getPowerup() >= 20) {
+            std::shared_ptr<Bullet> bullet1 = std::make_shared<Bullet>(this->player_->X() - 16 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 40 ? playerBulletCenterMovement : playerBulletLeftMovement);
+            std::shared_ptr<Bullet> bullet2 = std::make_shared<Bullet>(this->player_->X() + 8 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 40 ? playerBulletCenterMovement : playerBulletRightMovement);
             bullet1->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
             bullet2->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
             bullet1->setHitboxRadius(bullet1->W() / 2);
@@ -125,6 +138,7 @@ std::int8_t Stage::run() {
     this->player_->update(movX, movY);
     renderableManager.update();
     if (this->player_->getHp() < 1) { return -1; }
+    scoreManager.setMultiplier(this->player_->getPowerup() / 10);
 
     this->render();
 

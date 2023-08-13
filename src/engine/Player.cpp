@@ -37,12 +37,12 @@ void Player::update(float x, float y) {
 bool Player::damage(std::int8_t hpDamage) {
 	if (hpDamage < 0) { 
 		switch (hpDamage) {
-		case -1: { this->powerup_ += this->powerup_ < 80 ? 1 : 0; break; }
-		default: { this->powerup_ += this->powerup_ < 80 ? 2 : 0; break; }
+		case -1: { this->powerup_ += this->powerup_ < 40 ? 1 : 0; break; }
+		default: { this->powerup_ += this->powerup_ < 40 ? 2 : 0; break; }
 		}
 		return true;
 	}
-	this->powerup_ = this->powerup_ > 20 ? this->powerup_ - 20 : 0;
+	this->powerup_ = this->powerup_ > 10 ? this->powerup_ - 10 : 0;
 	Collisionable::damage(hpDamage);
 	return false;
 }
