@@ -105,11 +105,17 @@ std::int8_t Stage::run() {
 
 void Stage::init() {
     if (this->windowRenderer_) {
+        managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
+        
+        std::shared_ptr<Renderable> background = std::make_shared<Renderable>(0.f, 0.f);
+        background->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/background.png", this->windowRenderer_);
+        renderableManager.addRenderable(background);
+
+
         player_ = std::make_shared<Player>(400.f, 400.f);
         player_->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/bulonais.png",
                                 this->windowRenderer_);
 
-        managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
         renderableManager.addCollisionable(player_);
 
         std::shared_ptr<Boss> boss = std::make_shared<Boss>(400.f - 24.f, 50.f, bossKretkaMovement);

@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\icons\game.png" />
+    <Image Include="assets\sprites\background.png" />
     <Image Include="assets\sprites\banana.png" />
     <Image Include="assets\sprites\big-enemy.png" />
     <Image Include="assets\sprites\broccoli.png" />
