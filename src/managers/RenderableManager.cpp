@@ -4,21 +4,14 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "utils/MovementPatterns.h"
+
+#include "engine/Enemy.h"
 #include "engine/Powerup.h"
 
 namespace managers {
 
 namespace {
-
-void powerupSlowMovement(float& x, float& y) {
-	x = 0.f;
-	y = 1.f;
-}
-
-void powerupFastMovement(float& x, float& y) {
-	x = 0.f;
-	y = 2.f;
-}
 
 }
 
@@ -260,13 +253,43 @@ void RenderableManager::update() {
 	if (this->renderables_.size() + this->collisionables_.size() > 1) {
 		this->clean();
 	}
-	//ignore first element (so now), because of player instance
+	
 	for (auto it = this->renderables_.begin(); it != this->renderables_.end(); ++it) {
 		(*it)->update(0, 0);
 	}
-	for (auto it = ++this->collisionables_.begin(); it != this->collisionables_.end(); ++it) {
+
+	std::shared_ptr<engine::Enemy> enemy;
+	for (auto it = this->collisionables_.begin(); it != this->collisionables_.end(); ++it) {
+		if ((*it)->getType() == engine::CollisionEntityType::PLAYER) { continue; }
 		(*it)->update(0, 0);
+		if ((*it)->getType() == engine::CollisionEntityType::BOSS && (*it)->getUpdateFrameCounter() > 30) {
+			srand(time(NULL));
+			
+			std::uint8_t firingRate = 10;
+			if ((*it)->getUpdateFrameCounter() < 150) { firingRate = 60; }
+			else if ((*it)->getUpdateFrameCounter() < 300) { firingRate = 45; }
+			else if ((*it)->getUpdateFrameCounter() < 450) { firingRate = 30; }
+			else if ((*it)->getUpdateFrameCounter() < 900) { firingRate = 25; }
+			else if ((*it)->getUpdateFrameCounter() < 1800) { firingRate = 20; }
+			else if ((*it)->getUpdateFrameCounter() < 3600) { firingRate = 15; }
+			
+			if ((*it)->getUpdateFrameCounter() % firingRate == 1) { 
+				std::uint8_t enemy_type = rand() % 3;
+				std::string enemy_model;
+				switch (enemy_type) {
+					case 0: { enemy_model = "assets/sprites/small-enemy.png"; break; }
+					case 1: { enemy_model = "assets/sprites/medium-enemy.png"; break; }
+					case 2: { enemy_model = "assets/sprites/big-enemy.png"; break; }
+					default: { break; }
+				}
+				enemy = std::make_shared<engine::Enemy>(rand() * (*it)->getUpdateFrameCounter() % (800 - (16 + 8 * enemy_type)), 64, enemy_type == 0 ? enemySmallMovement : (enemy_type == 1 ? enemyMediumMovement : enemyBigMovement));
+				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
+				enemy->setHitboxRadius(enemy->W() / 2);
+			}
+		}
 	}
+	
+	if (enemy) { this->addCollisionable(enemy); }
 
 	this->checkCollision();
 }

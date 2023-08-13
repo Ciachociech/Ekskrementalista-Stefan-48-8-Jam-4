@@ -13,12 +13,11 @@ void Boss::update(float x, float y) {
 	float moveX = 0;
 	float moveY = 0;
 
-	if (this->getUpdateFrameCounter() > 30) {
+	if (!(this->getUpdateFrameCounter() % 30)) {
 		srand(time(NULL));
 		this->movementPattern_(moveX, moveY);
 		moveX *= rand() % 2 ? -1 : 1;
 		if (X() + moveX > 600.f || X() - moveX < 152.f) { moveX = 0; }
-		this->resetUpdateFrameCounter();
 	}
 
 	Renderable::update(moveX, moveY);
