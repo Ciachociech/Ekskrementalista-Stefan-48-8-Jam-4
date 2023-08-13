@@ -36,7 +36,10 @@ void Player::update(float x, float y) {
 
 bool Player::damage(std::int8_t hpDamage) {
 	if (hpDamage < 0) { 
-		this->powerup_ += 1;
+		switch (hpDamage) {
+			case -1: { this->powerup_ += 1; break; }
+			default: { break; }
+		}
 		return true;
 	}
 	this->powerup_ = this->powerup_ > 20 ? this->powerup_ - 20 : 0;

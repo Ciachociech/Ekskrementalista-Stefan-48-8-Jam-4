@@ -38,9 +38,9 @@
     <Filter Include="assets\sprites">
       <UniqueIdentifier>{68b6a018-daf2-4783-9e82-5f4c2deda1d3}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Filter Include="include\utils">
+      <UniqueIdentifier>{d3d6c377-4f1a-4efd-b057-652655e519ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -73,6 +73,9 @@
     <ClCompile Include="src\engine\Collisionable.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Powerup.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -102,6 +105,12 @@
     <ClInclude Include="include\engine\Collisionable.h">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\Powerup.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\MovementPatterns.h">
+      <Filter>include\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\NerkoOne-Regular.ttf">
@@ -121,5 +130,29 @@
     <Image Include="assets\sprites\bulonais.png">
       <Filter>assets\sprites</Filter>
     </Image>
+    <Image Include="assets\sprites\medium-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\carrot.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\broccoli.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\big-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\banana.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\powerup-plus.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\small-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

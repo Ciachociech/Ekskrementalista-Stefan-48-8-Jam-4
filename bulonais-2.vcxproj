@@ -140,6 +140,7 @@
     <ClCompile Include="src\engine\Enemy.cpp" />
     <ClCompile Include="src\engine\Instance.cpp" />
     <ClCompile Include="src\engine\Player.cpp" />
+    <ClCompile Include="src\engine\Powerup.cpp" />
     <ClCompile Include="src\engine\Renderable.cpp" />
     <ClCompile Include="src\engine\Stage.cpp" />
     <ClCompile Include="src\input\InputKeyboard.cpp" />
@@ -155,10 +156,12 @@
     <ClInclude Include="include\engine\Enemy.h" />
     <ClInclude Include="include\engine\Instance.h" />
     <ClInclude Include="include\engine\Player.h" />
+    <ClInclude Include="include\engine\Powerup.h" />
     <ClInclude Include="include\engine\Renderable.h" />
     <ClInclude Include="include\engine\Stage.h" />
     <ClInclude Include="include\input\InputKeyboard.h" />
     <ClInclude Include="include\managers\RenderableManager.h" />
+    <ClInclude Include="include\utils\MovementPatterns.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\NerkoOne-Regular.ttf" />
