@@ -27,7 +27,7 @@ private:
     const int FPS = 60;
     const std::string logoPath_ = "assets/icons/game.png";
     const std::string gameVersion_ = "0.2.8";
-    const std::string instanceNamePL_ = u8"Ekskrementalista Stefan (Skrócona wersja z Kretk¹ - " + gameVersion_ + ")";
+    const std::string instanceNamePL_ = u8"Ekskrementalista Stefan (SkrÃ³cona wersja z KretkÂ¹ - " + gameVersion_ + ")";
     const std::string instanceNameEN_ = u8"Stefan the Excrementalist (Kretka's Reduced Version - " + gameVersion_ + ")";
 
     // Game managers

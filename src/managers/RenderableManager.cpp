@@ -286,7 +286,7 @@ void RenderableManager::update() {
 					case 2: { enemy_model = "assets/sprites/big-enemy.png"; break; }
 					default: { break; }
 				}
-				enemy = std::make_shared<engine::Enemy>(rand() * (*it)->getUpdateFrameCounter() % (800 - (32 + 16 * enemy_type)), 64, enemy_type == 0 ? enemySmallMovement : (enemy_type == 1 ? enemyMediumMovement : enemyBigMovement));
+				enemy = std::make_shared<engine::Enemy>(rand() * (*it)->getUpdateFrameCounter() % (800 - (32 + 16 * enemy_type)), 64, enemy_type == 0 ? enemySmallUpToDownMovement : (enemy_type == 1 ? enemyMediumUpToDownMovement : enemyBigUpToDownMovement));
 				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
 				enemy->setHitboxRadius(enemy->W() / 2);
 				enemy->damage(1 - 2 * (1 + enemy_type) * (1 + enemy_type));

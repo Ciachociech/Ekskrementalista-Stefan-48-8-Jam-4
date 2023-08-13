@@ -31,19 +31,49 @@ inline void bossKretkaMovement(float& x, float& y) {
     y = 0.f;
 }
 
-inline void enemySmallMovement(float& x, float& y) {
+inline void enemySmallUpToDownMovement(float& x, float& y) {
     x = 0.f;
     y = 9.f;
 }
 
-inline void enemyMediumMovement(float& x, float& y) {
+inline void enemyMediumUpToDownMovement(float& x, float& y) {
     x = 0.f;
     y = 6.f;
 }
 
-inline void enemyBigMovement(float& x, float& y) {
+inline void enemyBigUpToDownMovement(float& x, float& y) {
     x = 0.f;
     y = 3.f;
+}
+
+inline void enemySmallLeftToRightMovement(float& x, float& y) {
+    x = 6.f;
+    y = 0.f;
+}
+
+inline void enemyMediumLeftToRightMovement(float& x, float& y) {
+    x = 4.f;
+    y = 0.f;
+}
+
+inline void enemyBigLeftToRightMovement(float& x, float& y) {
+    x = 2.f;
+    y = 0.f;
+}
+
+inline void enemySmallRightToLeftMovement(float& x, float& y) {
+    x = -6.f;
+    y = 0.f;
+}
+
+inline void enemyMediumRightToLeftMovement(float& x, float& y) {
+    x = -4.f;
+    y = 0.f;
+}
+
+inline void enemyBigRightToLeftMovement(float& x, float& y) {
+    x = -2.f;
+    y = 0.f;
 }
 
 #endif // !MOVEMENTPATTERNS_H_

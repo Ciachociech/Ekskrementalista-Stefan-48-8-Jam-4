@@ -24,7 +24,7 @@ void Stage::renderText() {
     clr.b = 255;
     clr.a = 255;
     std::shared_ptr<Text> lifeText = std::make_shared<Text>(850.f, 36.f);
-    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"¯ycia: ", clr, this->windowRenderer_, this->font_);
+    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"Â¯ycia: ", clr, this->windowRenderer_, this->font_);
     lifeText->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> powerText1 = std::make_shared<Text>(850.f, 100.f);
@@ -52,11 +52,11 @@ void Stage::renderText() {
     tipText2->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> tipText3 = std::make_shared<Text>(850.f, 356.f);
-    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strza³", clr, this->windowRenderer_, this->font_);
+    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strzaÂ³", clr, this->windowRenderer_, this->font_);
     tipText3->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> anyKeyTest = std::make_shared<Text>(850.f, 482.f);
-    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"Naciœnij dowolny przycisk, aby zacz¹æ", clr, this->windowRenderer_, this->font_);
+    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"NaciÂœnij dowolny przycisk, aby zaczÂ¹Ã¦", clr, this->windowRenderer_, this->font_);
     if (isWaitingToStart) { anyKeyTest->render(0, 0, this->windowRenderer_); }
 }
 
@@ -86,6 +86,10 @@ void Stage::waitToStart() {
         }
         }
     }
+
+    std::shared_ptr<Renderable> banner = std::make_shared<Renderable>(800.f, 693.f);
+    banner->loadFromFile(1.f, 1.f, 1, 1, 1, *this->lang_ == Language::ENGLISH ? "assets/others/bannerEN.png" : "assets/others/bannerPL.png", this->windowRenderer_);
+    banner->render(0, 0, this->windowRenderer_);
 }
 
 Stage::Stage() { this->init(); }
