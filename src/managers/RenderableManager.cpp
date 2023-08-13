@@ -40,7 +40,7 @@ void RenderableManager::checkCollision() {
 							this->collisionables_[it1]->damage(1);
 							toRemove[it2] = true;
 						}
-						else if (type2 == engine::CollisionEntityType::POWERUP) {
+						else if ((std::int8_t)(type2) < 0) {
 							this->collisionables_[it1]->damage(-1);
 							toRemove[it2] = true;
 						}
@@ -74,7 +74,10 @@ void RenderableManager::checkCollision() {
 						break;
 					}
 
-					case engine::CollisionEntityType::POWERUP: {
+					case engine::CollisionEntityType::POWERUP:
+					case engine::CollisionEntityType::CARROT: 
+					case engine::CollisionEntityType::BANANA: 
+					case engine::CollisionEntityType::BROCCOLI: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
 							this->collisionables_[it1]->damage(-1);
 							toRemove[it2] = true;
