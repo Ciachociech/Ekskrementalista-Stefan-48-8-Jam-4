@@ -41,7 +41,7 @@ private:
 
     // Others
     Stage stage;
-
+    Language lang_;
 public:
     Instance();
     virtual ~Instance();

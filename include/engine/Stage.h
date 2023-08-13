@@ -12,6 +12,8 @@
 
 namespace engine {
 
+enum class Language { ENGLISH, POLISH };
+
 namespace {
 
 constexpr float playerMovement = 2.5f;
@@ -23,6 +25,7 @@ private:
     // Global SDL values
     SDL_Renderer* windowRenderer_ = NULL;
     TTF_Font* font_ = NULL;
+    Language* lang_ = NULL;
 
     // Others
     std::shared_ptr<Player> player_;
@@ -36,6 +39,7 @@ public:
     // loading pointers to instance managers and objects
     void loadRenderer(SDL_Renderer* renderer);
     void loadFont(TTF_Font* font);
+    void loadLanguage(Language* lang);
 
     // Game functions
     std::int8_t run();
