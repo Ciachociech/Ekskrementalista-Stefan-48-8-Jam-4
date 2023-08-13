@@ -176,6 +176,7 @@
     <Image Include="assets\sprites\broccoli.png" />
     <Image Include="assets\sprites\bulonais.png" />
     <Image Include="assets\sprites\carrot.png" />
+    <Image Include="assets\sprites\life.png" />
     <Image Include="assets\sprites\medium-enemy.png" />
     <Image Include="assets\sprites\poop.png" />
     <Image Include="assets\sprites\powerup-plus.png" />
