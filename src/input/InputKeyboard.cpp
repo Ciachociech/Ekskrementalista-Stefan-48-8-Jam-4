@@ -19,8 +19,11 @@ std::list<KeyAction> InputKeyboard::interpretSingleAction()
     if (checkSusCombo(keyboardStates)) {}
     if (checkDogeCombo(keyboardStates)) {}
 
-    if (keyboardStates[defaultInstinctKey - scancodeShift]) {
+    if (keyboardStates[defaultInstinctKey - scancodeStdShift]) {
         actions.push_back(KeyAction::useInstinct);
+    }
+    if (keyboardStates[defaultChangeLanguage - scancodeNumShift]) {
+        actions.push_back(KeyAction::changeLanguage);
     }
 
     //push back empty to prevent errors
@@ -35,22 +38,22 @@ std::list<KeyAction> InputKeyboard::interpretMultipleAction()
 
     std::list<KeyAction> actions;
 
-    if (keyboardStates[defaultUpKey - scancodeShift] &&
-        !keyboardStates[defaultDownKey - scancodeShift]) {
+    if (keyboardStates[defaultUpKey - scancodeStdShift] &&
+        !keyboardStates[defaultDownKey - scancodeStdShift]) {
         actions.push_back(KeyAction::moveUp);
-    } else if (!keyboardStates[defaultUpKey - scancodeShift] &&
-        keyboardStates[defaultDownKey - scancodeShift]) {
+    } else if (!keyboardStates[defaultUpKey - scancodeStdShift] &&
+        keyboardStates[defaultDownKey - scancodeStdShift]) {
         actions.push_back(KeyAction::moveDown);
     }
-    if (keyboardStates[defaultLeftKey - scancodeShift] &&
-        !keyboardStates[defaultRightKey - scancodeShift]) {
+    if (keyboardStates[defaultLeftKey - scancodeStdShift] &&
+        !keyboardStates[defaultRightKey - scancodeStdShift]) {
         actions.push_back(KeyAction::moveLeft);
-    } else if (!keyboardStates[defaultLeftKey - scancodeShift] &&
-        keyboardStates[defaultRightKey - scancodeShift]) {
+    } else if (!keyboardStates[defaultLeftKey - scancodeStdShift] &&
+        keyboardStates[defaultRightKey - scancodeStdShift]) {
         actions.push_back(KeyAction::moveRight);
     }
 
-    if (keyboardStates[defaultShotKey - scancodeShift]) {
+    if (keyboardStates[defaultShotKey - scancodeStdShift]) {
         actions.push_back(KeyAction::shootBullet);
     }
 

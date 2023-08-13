@@ -24,11 +24,11 @@ void Stage::renderText() {
     clr.b = 255;
     clr.a = 255;
     std::shared_ptr<Text> lifeText = std::make_shared<Text>(850.f, 36.f);
-    lifeText->loadFromText("Lifes: ", clr, this->windowRenderer_, this->font_);
+    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"¯ycia: ", clr, this->windowRenderer_, this->font_);
     lifeText->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> powerText1 = std::make_shared<Text>(850.f, 100.f);
-    powerText1->loadFromText("Power lvl: ", clr, this->windowRenderer_, this->font_);
+    powerText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Power level: " : u8"Poziom mocy: ", clr, this->windowRenderer_, this->font_);
     powerText1->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> powerText2 = std::make_shared<Text>(1150.f, 100.f, false);
@@ -36,7 +36,7 @@ void Stage::renderText() {
     powerText2->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 164.f);
-    scoreText1->loadFromText("Score: ", clr, this->windowRenderer_, this->font_);
+    scoreText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Score: " : u8"Wynik", clr, this->windowRenderer_, this->font_);
     scoreText1->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
@@ -52,16 +52,15 @@ void Stage::renderHearts() {
     }
 }
 
-Stage::Stage() { 
-    this->init(); 
-    //Boss::score = 0; 
-}
+Stage::Stage() { this->init(); }
 
 Stage::~Stage() {}
 
 void Stage::loadRenderer(SDL_Renderer* renderer) { this->windowRenderer_ = renderer; }
 
 void Stage::loadFont(TTF_Font* font) { this->font_ = font; }
+
+void Stage::loadLanguage(engine::Language* lang) { this->lang_ = lang; }
 
 std::int8_t Stage::run() {
     SDL_Event event;
@@ -102,11 +101,15 @@ std::int8_t Stage::run() {
             return -1;
             break;
         }
-        case SDL_KEYDOWN:
-        case SDL_KEYUP: {
+        case SDL_KEYDOWN: {
             std::list<input::KeyAction> keyActions = keyboard.interpretSingleAction();
 
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
+            if (*keyActions.begin() == input::KeyAction::changeLanguage) { 
+                if (*this->lang_ == Language::ENGLISH) { *this->lang_ = Language::POLISH; }
+                else if (*this->lang_ == Language::POLISH) { *this->lang_ = Language::ENGLISH; }
+                keyActions.pop_front(); 
+            }
             break;
         }
         default: {

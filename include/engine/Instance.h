@@ -26,7 +26,7 @@ private:
     // Global SDL values
     const int FPS = 60;
     const std::string logoPath_ = "assets/icons/game.png";
-    const std::string gameVersion_ = "0.2.5";
+    const std::string gameVersion_ = "0.2.6";
     const std::string instanceNamePL_ = u8"TBD (Skrócona wersja z Kretk¹ - " + gameVersion_ + ")";
     const std::string instanceNameEN_ = u8"TBD (Kretka's Reduced Version - " + gameVersion_ + ")";
 
@@ -41,7 +41,7 @@ private:
 
     // Others
     Stage stage;
-
+    Language lang_;
 public:
     Instance();
     virtual ~Instance();
