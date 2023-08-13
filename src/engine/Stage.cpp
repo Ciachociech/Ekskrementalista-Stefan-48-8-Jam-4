@@ -54,6 +54,10 @@ void Stage::renderText() {
     std::shared_ptr<Text> tipText3 = std::make_shared<Text>(850.f, 356.f);
     tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strza³", clr, this->windowRenderer_, this->font_);
     tipText3->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> anyKeyTest = std::make_shared<Text>(850.f, 482.f);
+    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"Naciœnij dowolny przycisk, aby zacz¹æ", clr, this->windowRenderer_, this->font_);
+    if (isWaitingToStart) { anyKeyTest->render(0, 0, this->windowRenderer_); }
 }
 
 void Stage::renderHearts() {
@@ -68,6 +72,22 @@ void Stage::renderHearts() {
     banner->render(0, 0, this->windowRenderer_);
 }
 
+void Stage::waitToStart() {
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event) != 0) {
+        switch (event.type) {
+        case SDL_KEYDOWN: {
+            isWaitingToStart = false;
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+    }
+}
+
 Stage::Stage() { this->init(); }
 
 Stage::~Stage() {}
@@ -79,6 +99,10 @@ void Stage::loadFont(TTF_Font* font) { this->font_ = font; }
 void Stage::loadLanguage(engine::Language* lang) { this->lang_ = lang; }
 
 std::int8_t Stage::run() {
+    if (isWaitingToStart) {
+        waitToStart();
+        return 0;
+    }
     SDL_Event event;
 
     float movX = 0;
