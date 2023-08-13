@@ -38,6 +38,9 @@
     <Filter Include="assets\sprites">
       <UniqueIdentifier>{68b6a018-daf2-4783-9e82-5f4c2deda1d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\utils">
+      <UniqueIdentifier>{d3d6c377-4f1a-4efd-b057-652655e519ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -73,6 +76,9 @@
     <ClCompile Include="src\engine\Collisionable.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Powerup.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -102,6 +108,12 @@
     <ClInclude Include="include\engine\Collisionable.h">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\Powerup.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\MovementPatterns.h">
+      <Filter>include\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\NerkoOne-Regular.ttf">
@@ -121,5 +133,12 @@
     <Image Include="assets\sprites\bulonais.png">
       <Filter>assets\sprites</Filter>
     </Image>
+    <Image Include="assets\sprites\banana.png" />
+    <Image Include="assets\sprites\big-enemy.png" />
+    <Image Include="assets\sprites\broccoli.png" />
+    <Image Include="assets\sprites\carrot.png" />
+    <Image Include="assets\sprites\medium-enemy.png" />
+    <Image Include="assets\sprites\powerup-plus.png" />
+    <Image Include="assets\sprites\small-enemy.png" />
   </ItemGroup>
 </Project>

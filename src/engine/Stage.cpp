@@ -4,6 +4,7 @@
 
 #include "engine/Bullet.h"
 #include "engine/Enemy.h"
+#include "utils/MovementPatterns.h"
 
 namespace engine {
 
@@ -11,15 +12,6 @@ namespace {
 
 //managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
 
-void playerBulletMovement(float& x, float& y) {
-    x = 0.f;
-    y = -9.f;
-}
-
-void enemyEmptyMovement(float& x, float& y) {
-    x = 0.f;
-    y = 0.f;
-}
 }
 
 Stage::Stage() { this->init(); }
