@@ -51,11 +51,11 @@ void RenderableManager::checkCollision() {
 					case engine::CollisionEntityType::PLAYER: {
 						if (type2 == engine::CollisionEntityType::ENEMY) {
 							this->collisionables_[it1]->damage(1);
-							toRemove[it2] = true;
+							if (this->collisionables_[it2]->damage(100)) { toRemove[it2] = true; }
 						}
 						else if ((std::int8_t)(type2) < 0) {
 							this->collisionables_[it1]->damage((std::int8_t)(type2));
-							toRemove[it2] = true;
+							if (this->collisionables_[it2]->damage(1)) { toRemove[it2] = true; }
 						}
 						else if (type2 == engine::CollisionEntityType::BOSS) {
 							this->collisionables_[it1]->damage(1);
@@ -65,13 +65,15 @@ void RenderableManager::checkCollision() {
 
 					case engine::CollisionEntityType::ALLY_BULLET: {
 						if (type2 == engine::CollisionEntityType::ENEMY) {
-							toRemove[it1] = true;
-							toRemove[it2] = true;
-							if (!(rand() % 4)) {
-								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
-								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
-								powerup->setHitboxRadius(powerup->W());
-								this->addCollisionable(powerup);
+							if (this->collisionables_[it1]->damage(1)) { toRemove[it1] = true; }
+							if (this->collisionables_[it2]->damage(1)) { 
+								toRemove[it2] = true; 
+								if (!(rand() % 4)) {
+									std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
+									powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
+									powerup->setHitboxRadius(powerup->W());
+									this->addCollisionable(powerup);
+								}
 							}
 						}
 						else if (type2 == engine::CollisionEntityType::BOSS) {
@@ -115,47 +117,49 @@ void RenderableManager::checkCollision() {
 
 					case engine::CollisionEntityType::ENEMY: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							toRemove[it1] = true;
+							if (this->collisionables_[it1]->damage(100)) { toRemove[it1] = true; }
 							this->collisionables_[it2]->damage(1);
 						} 
 						else if (type2 == engine::CollisionEntityType::ALLY_BULLET) {
-							toRemove[it1] = true;
-							toRemove[it2] = true;
-							if (!(rand() % 4)) {
-								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
-								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
-								powerup->setHitboxRadius(powerup->W());
-								this->addCollisionable(powerup);
+							if (this->collisionables_[it1]->damage(1)) { 
+								toRemove[it1] = true; 
+								if (!(rand() % 4)) {
+									std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
+									powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
+									powerup->setHitboxRadius(powerup->W());
+									this->addCollisionable(powerup);
+								}
 							}
+							if (this->collisionables_[it2]->damage(1)) { toRemove[it2] = true; }
 						}
 						break;
 					}
 
 					case engine::CollisionEntityType::POWERUP: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							this->collisionables_[it1]->damage(-1);
-							toRemove[it2] = true;
+							if (this->collisionables_[it1]->damage(1)) { toRemove[it1] = true; }
+							this->collisionables_[it2]->damage(-1);
 						}
 						break;
 					}
 					case engine::CollisionEntityType::CARROT: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							this->collisionables_[it1]->damage(-2);
-							toRemove[it2] = true;
+							if (this->collisionables_[it1]->damage(1)) { toRemove[it1] = true; }
+							this->collisionables_[it2]->damage(-2);
 						}
 						break;
 					}
 					case engine::CollisionEntityType::BANANA: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							this->collisionables_[it1]->damage(-3);
-							toRemove[it2] = true;
+							if (this->collisionables_[it1]->damage(1)) { toRemove[it1] = true; }
+							this->collisionables_[it2]->damage(-3);
 						}
 						break;
 					}
 					case engine::CollisionEntityType::BROCCOLI: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
-							this->collisionables_[it1]->damage(-4);
-							toRemove[it2] = true;
+							if (this->collisionables_[it1]->damage(1)) { toRemove[it1] = true; }
+							this->collisionables_[it2]->damage(-4);
 						}
 						break;
 					}
@@ -274,7 +278,7 @@ void RenderableManager::update() {
 			else if ((*it)->getUpdateFrameCounter() < 3600) { firingRate = 15; }
 			
 			if ((*it)->getUpdateFrameCounter() % firingRate == 1) { 
-				std::uint8_t enemy_type = rand() % 3;
+				std::uint8_t enemy_type = 11 * (7 + (*it)->getUpdateFrameCounter()) * rand() % 3;
 				std::string enemy_model;
 				switch (enemy_type) {
 					case 0: { enemy_model = "assets/sprites/small-enemy.png"; break; }
@@ -285,6 +289,7 @@ void RenderableManager::update() {
 				enemy = std::make_shared<engine::Enemy>(rand() * (*it)->getUpdateFrameCounter() % (800 - (16 + 8 * enemy_type)), 64, enemy_type == 0 ? enemySmallMovement : (enemy_type == 1 ? enemyMediumMovement : enemyBigMovement));
 				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
 				enemy->setHitboxRadius(enemy->W() / 2);
+				enemy->damage(1 - 2 * (1 + enemy_type));
 			}
 		}
 	}

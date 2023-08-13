@@ -3,8 +3,8 @@
 namespace engine {
 
 Player::Player(float x, float y) : Collisionable(x, y, CollisionEntityType::PLAYER), powerup_(0) {
-	this->setHitboxCenter(x + (W() / 2), y + (H() / 2));
 	this->setHitboxRadius(12);
+	Collisionable::damage(-4);
 }
 
 Player::~Player() {}
@@ -38,11 +38,12 @@ bool Player::damage(std::int8_t hpDamage) {
 	if (hpDamage < 0) { 
 		switch (hpDamage) {
 		case -1: { this->powerup_ += this->powerup_ < 80 ? 1 : 0; break; }
-		default: { this->powerup_ += this->powerup_ < 80 ? 2 : 0; break; break; }
+		default: { this->powerup_ += this->powerup_ < 80 ? 2 : 0; break; }
 		}
 		return true;
 	}
 	this->powerup_ = this->powerup_ > 20 ? this->powerup_ - 20 : 0;
+	Collisionable::damage(hpDamage);
 	return false;
 }
 

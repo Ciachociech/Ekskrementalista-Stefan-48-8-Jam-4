@@ -96,6 +96,7 @@ std::int8_t Stage::run() {
 
     this->player_->update(movX, movY);
     renderableManager.update();
+    if (this->player_->getHp() < 1) { return -1; }
 
     this->render();
 
