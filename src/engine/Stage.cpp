@@ -2,6 +2,7 @@
 
 #include <list>
 
+#include "engine/Boss.h"
 #include "engine/Bullet.h"
 #include "engine/Enemy.h"
 #include "utils/MovementPatterns.h"
@@ -99,9 +100,14 @@ void Stage::init() {
         managers::RenderableManager& renderableManager = managers::RenderableManager::instance();
         renderableManager.addCollisionable(player_);
 
+        std::shared_ptr<Boss> boss = std::make_shared<Boss>(400.f - 24.f, 50.f, bossKretkaMovement);
+        boss->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/skrobella.png", this->windowRenderer_);
+        boss->setHitboxRadius(boss->W() / 2);
+        renderableManager.addCollisionable(boss);
+
         for (int it = 0; it < 16; ++it) {
-            std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(24 + 48 * (it % 16), 32, enemyEmptyMovement);
-            enemy->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/wip.png", this->windowRenderer_);
+            std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(24 + 48 * (it % 16), 132, enemyEmptyMovement);
+            enemy->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/small-enemy.png", this->windowRenderer_);
             enemy->setHitboxRadius(enemy->W() / 2);
             renderableManager.addCollisionable(enemy);
         }

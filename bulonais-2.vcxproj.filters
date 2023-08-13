@@ -76,6 +76,9 @@
     <ClCompile Include="src\engine\Powerup.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Boss.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Instance.h">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="include\utils\MovementPatterns.h">
       <Filter>include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Boss.h">
+      <Filter>include\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +155,9 @@
       <Filter>assets\sprites</Filter>
     </Image>
     <Image Include="assets\sprites\small-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\skrobella.png">
       <Filter>assets\sprites</Filter>
     </Image>
   </ItemGroup>

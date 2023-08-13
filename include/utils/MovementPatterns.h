@@ -11,4 +11,9 @@ void enemyEmptyMovement(float& x, float& y) {
     y = 0.f;
 }
 
+void bossKretkaMovement(float& x, float& y) {
+    x = 4.f;
+    y = 0.f;
+}
+
 #endif // !MOVEMENTPATTERNS_H_

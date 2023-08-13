@@ -43,7 +43,7 @@ bool Player::damage(std::int8_t hpDamage) {
 		return true;
 	}
 	this->powerup_ = this->powerup_ > 20 ? this->powerup_ - 20 : 0;
-	return Collisionable::damage(hpDamage);
+	return false;
 }
 
 } // namespace engine

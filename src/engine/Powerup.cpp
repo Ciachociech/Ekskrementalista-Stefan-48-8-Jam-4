@@ -19,6 +19,4 @@ bool Powerup::damage(std::int8_t hpDamage) {
 	return Collisionable::damage(hpDamage);
 }
 
-
-
 }
