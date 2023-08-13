@@ -24,11 +24,11 @@ void Stage::renderText() {
     clr.b = 255;
     clr.a = 255;
     std::shared_ptr<Text> lifeText = std::make_shared<Text>(850.f, 36.f);
-    lifeText->loadFromText("Lifes: ", clr, this->windowRenderer_, this->font_);
+    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"¯ycia: ", clr, this->windowRenderer_, this->font_);
     lifeText->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> powerText1 = std::make_shared<Text>(850.f, 100.f);
-    powerText1->loadFromText("Power lvl: ", clr, this->windowRenderer_, this->font_);
+    powerText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Power level: " : u8"Poziom mocy: ", clr, this->windowRenderer_, this->font_);
     powerText1->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> powerText2 = std::make_shared<Text>(1150.f, 100.f, false);
@@ -36,12 +36,28 @@ void Stage::renderText() {
     powerText2->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 164.f);
-    scoreText1->loadFromText("Score: ", clr, this->windowRenderer_, this->font_);
+    scoreText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Score: " : u8"Wynik: ", clr, this->windowRenderer_, this->font_);
     scoreText1->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
     scoreText2->loadFromText((scoreManager.getScore() == 0 ? "" : std::to_string(scoreManager.getScore())) + "0", clr, this->windowRenderer_, this->font_);
     scoreText2->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText1 = std::make_shared<Text>(850.f, 226.f);
+    tipText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Controls: " : u8"Sterowanie: ", clr, this->windowRenderer_, this->font_);
+    tipText1->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText2 = std::make_shared<Text>(850.f, 292.f);
+    tipText2->loadFromText(*this->lang_ == Language::ENGLISH ? "[W/S/A/D] - move" : u8"[W/S/A/D] - ruch", clr, this->windowRenderer_, this->font_);
+    tipText2->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText3 = std::make_shared<Text>(850.f, 356.f);
+    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strza³", clr, this->windowRenderer_, this->font_);
+    tipText3->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> anyKeyTest = std::make_shared<Text>(850.f, 482.f);
+    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"Naciœnij dowolny przycisk, aby zacz¹æ", clr, this->windowRenderer_, this->font_);
+    if (isWaitingToStart) { anyKeyTest->render(0, 0, this->windowRenderer_); }
 }
 
 void Stage::renderHearts() {
@@ -50,12 +66,29 @@ void Stage::renderHearts() {
         heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
         heart->render(0, 0, this->windowRenderer_);
     }
+
+    std::shared_ptr<Renderable> banner = std::make_shared<Renderable>(800.f, 693.f);
+    banner->loadFromFile(1.f, 1.f, 1, 1, 1, *this->lang_ == Language::ENGLISH ? "assets/others/bannerEN.png" : "assets/others/bannerPL.png", this->windowRenderer_);
+    banner->render(0, 0, this->windowRenderer_);
 }
 
-Stage::Stage() { 
-    this->init(); 
-    //Boss::score = 0; 
+void Stage::waitToStart() {
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event) != 0) {
+        switch (event.type) {
+        case SDL_KEYDOWN: {
+            isWaitingToStart = false;
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+    }
 }
+
+Stage::Stage() { this->init(); }
 
 Stage::~Stage() {}
 
@@ -63,7 +96,13 @@ void Stage::loadRenderer(SDL_Renderer* renderer) { this->windowRenderer_ = rende
 
 void Stage::loadFont(TTF_Font* font) { this->font_ = font; }
 
+void Stage::loadLanguage(engine::Language* lang) { this->lang_ = lang; }
+
 std::int8_t Stage::run() {
+    if (isWaitingToStart) {
+        waitToStart();
+        return 0;
+    }
     SDL_Event event;
 
     float movX = 0;
@@ -102,11 +141,15 @@ std::int8_t Stage::run() {
             return -1;
             break;
         }
-        case SDL_KEYDOWN:
-        case SDL_KEYUP: {
+        case SDL_KEYDOWN: {
             std::list<input::KeyAction> keyActions = keyboard.interpretSingleAction();
 
             if (*keyActions.begin() == input::KeyAction::useInstinct) { keyActions.pop_front(); }
+            if (*keyActions.begin() == input::KeyAction::changeLanguage) { 
+                if (*this->lang_ == Language::ENGLISH) { *this->lang_ = Language::POLISH; }
+                else if (*this->lang_ == Language::POLISH) { *this->lang_ = Language::ENGLISH; }
+                keyActions.pop_front(); 
+            }
             break;
         }
         default: {

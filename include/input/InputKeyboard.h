@@ -15,7 +15,9 @@ enum class KeyAction {
     moveLeft,
     moveRight,
     shootBullet,
-    useInstinct
+    useInstinct,
+    changeLanguage,
+    startGame
 };
 
 const SDL_Keycode defaultUpKey = SDLK_w;
@@ -24,9 +26,11 @@ const SDL_Keycode defaultLeftKey = SDLK_a;
 const SDL_Keycode defaultRightKey = SDLK_d;
 const SDL_Keycode defaultShotKey = SDLK_k;
 const SDL_Keycode defaultInstinctKey = SDLK_l;
+const SDL_Keycode defaultChangeLanguage = SDLK_9;
 
 namespace {
-    constexpr std::uint8_t scancodeShift = 93;
+    constexpr std::uint8_t scancodeStdShift = 93;
+    constexpr std::uint8_t scancodeNumShift = 19;
 }
 
 class InputKeyboard {

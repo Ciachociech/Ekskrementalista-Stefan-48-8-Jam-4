@@ -67,7 +67,6 @@ bool Instance::loadMedia() {
     return false;
     }
     */
-    // SDL_SetWindowTitle(this->window_, this->instanceNamePL_.c_str());
 
     return true;
 }
@@ -93,6 +92,11 @@ bool Instance::loop() {
 
         render();
 
+        switch (this->lang_) {
+            case Language::ENGLISH: { SDL_SetWindowTitle(this->window_, this->instanceNameEN_.c_str()); break; }
+            case Language::POLISH: { SDL_SetWindowTitle(this->window_, this->instanceNamePL_.c_str()); break; }
+        }
+
         if ((SDL_GetTicks() - frameTime) < (1000.f / FPS)) {
             SDL_Delay((1000.f / FPS) - (SDL_GetTicks() - frameTime));
         }
@@ -109,7 +113,7 @@ void Instance::render() {
     SDL_RenderPresent(this->windowRenderer_);
 }
 
-Instance::Instance() {
+Instance::Instance() : lang_(Language::ENGLISH) {
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
@@ -122,6 +126,7 @@ Instance::~Instance() {}
 void Instance::run() {
     stage.loadRenderer(this->windowRenderer_);
     stage.loadFont(this->font_);
+    stage.loadLanguage(&this->lang_);
     stage.init();
 
     if (!loop()) { printf("Problem occured during running instance!"); }

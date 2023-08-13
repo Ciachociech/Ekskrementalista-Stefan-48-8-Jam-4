@@ -289,7 +289,7 @@ void RenderableManager::update() {
 				enemy = std::make_shared<engine::Enemy>(rand() * (*it)->getUpdateFrameCounter() % (800 - (32 + 16 * enemy_type)), 64, enemy_type == 0 ? enemySmallMovement : (enemy_type == 1 ? enemyMediumMovement : enemyBigMovement));
 				enemy->loadFromFile(1.f, 1.f, 1, 1, 1, enemy_model, this->renderer_);
 				enemy->setHitboxRadius(enemy->W() / 2);
-				enemy->damage(1 - 2 * (1 + enemy_type));
+				enemy->damage(1 - 2 * (1 + enemy_type) * (1 + enemy_type));
 			}
 		}
 	}
