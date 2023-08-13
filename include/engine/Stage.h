@@ -27,6 +27,7 @@ private:
     // Others
     std::shared_ptr<Player> player_;
     input::InputKeyboard keyboard;
+    void renderText();
     void renderHearts();
 public:
     Stage();

@@ -5,6 +5,7 @@
 #include <string>
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 namespace engine {
 
@@ -44,6 +45,7 @@ public:
     virtual bool loadFromFile(float scaleX, float scaleY, int frames, int sides,
                               std::uint16_t animationTime_, std::string filepath,
                               SDL_Renderer* renderer);
+    virtual bool loadFromText(int alignX, std::string textureText, SDL_Color textColor, SDL_Renderer* renderer, TTF_Font* font, bool isLeftside);
     void free();
     virtual void render(int cameraX, int cameraY, SDL_Renderer* renderer);
 

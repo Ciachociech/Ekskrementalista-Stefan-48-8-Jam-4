@@ -121,6 +121,7 @@ Instance::~Instance() {}
 
 void Instance::run() {
     stage.loadRenderer(this->windowRenderer_);
+    stage.loadFont(this->font_);
     stage.init();
 
     if (!loop()) { printf("Problem occured during running instance!"); }
