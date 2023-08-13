@@ -36,12 +36,24 @@ void Stage::renderText() {
     powerText2->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 164.f);
-    scoreText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Score: " : u8"Wynik", clr, this->windowRenderer_, this->font_);
+    scoreText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Score: " : u8"Wynik: ", clr, this->windowRenderer_, this->font_);
     scoreText1->render(0, 0, this->windowRenderer_);
 
     std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
     scoreText2->loadFromText((scoreManager.getScore() == 0 ? "" : std::to_string(scoreManager.getScore())) + "0", clr, this->windowRenderer_, this->font_);
     scoreText2->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText1 = std::make_shared<Text>(850.f, 226.f);
+    tipText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Controls: " : u8"Sterowanie: ", clr, this->windowRenderer_, this->font_);
+    tipText1->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText2 = std::make_shared<Text>(850.f, 292.f);
+    tipText2->loadFromText(*this->lang_ == Language::ENGLISH ? "[W/S/A/D] - move" : u8"[W/S/A/D] - ruch", clr, this->windowRenderer_, this->font_);
+    tipText2->render(0, 0, this->windowRenderer_);
+
+    std::shared_ptr<Text> tipText3 = std::make_shared<Text>(850.f, 356.f);
+    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strza³", clr, this->windowRenderer_, this->font_);
+    tipText3->render(0, 0, this->windowRenderer_);
 }
 
 void Stage::renderHearts() {
@@ -50,6 +62,10 @@ void Stage::renderHearts() {
         heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
         heart->render(0, 0, this->windowRenderer_);
     }
+
+    std::shared_ptr<Renderable> banner = std::make_shared<Renderable>(800.f, 693.f);
+    banner->loadFromFile(1.f, 1.f, 1, 1, 1, *this->lang_ == Language::ENGLISH ? "assets/others/bannerEN.png" : "assets/others/bannerPL.png", this->windowRenderer_);
+    banner->render(0, 0, this->windowRenderer_);
 }
 
 Stage::Stage() { this->init(); }
