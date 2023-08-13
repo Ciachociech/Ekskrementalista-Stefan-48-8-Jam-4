@@ -9,6 +9,7 @@
 #include "input/InputKeyboard.h"
 #include "managers/RenderableManager.h"
 #include "Player.h"
+#include "Text.h"
 
 namespace engine {
 
@@ -34,6 +35,18 @@ private:
     void renderHearts();
     void waitToStart();
     bool isWaitingToStart = true;
+	
+	//Critical fix
+    std::shared_ptr<Text> lifeText;
+    std::shared_ptr<Text> powerText1;
+    std::shared_ptr<Text> powerText2;
+    std::shared_ptr<Text> scoreText1;
+    std::shared_ptr<Text> scoreText2;
+    std::shared_ptr<Text> tipText1;
+    std::shared_ptr<Text> tipText2;
+    std::shared_ptr<Text> tipText3;
+    std::shared_ptr<Text> anyKeyTest;
+    std::vector<std::shared_ptr<Renderable>> hearts;
 public:
     Stage();
     virtual ~Stage();

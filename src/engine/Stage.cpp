@@ -4,7 +4,6 @@
 
 #include "engine/Boss.h"
 #include "engine/Bullet.h"
-#include "engine/Text.h"
 #include "managers/ScoreManager.h"
 #include "utils/MovementPatterns.h"
 
@@ -23,48 +22,38 @@ void Stage::renderText() {
     clr.g = 255;
     clr.b = 255;
     clr.a = 255;
-    std::shared_ptr<Text> lifeText = std::make_shared<Text>(850.f, 36.f);
-    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"Â¯ycia: ", clr, this->windowRenderer_, this->font_);
+
+    lifeText->loadFromText(*this->lang_ == Language::ENGLISH ? "Lifes: " : u8"¯ycia: ", clr, this->windowRenderer_, this->font_);
     lifeText->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> powerText1 = std::make_shared<Text>(850.f, 100.f);
     powerText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Power level: " : u8"Poziom mocy: ", clr, this->windowRenderer_, this->font_);
     powerText1->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> powerText2 = std::make_shared<Text>(1150.f, 100.f, false);
     powerText2->loadFromText(std::to_string(1 + this->player_->getPowerup() / 10) + " (" + (this->player_->getPowerup() >= 40 ? "MAX" : std::to_string(this->player_->getPowerup() % 10) + "/10") + ")", clr, this->windowRenderer_, this->font_);
     powerText2->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> scoreText1 = std::make_shared<Text>(850.f, 164.f);
     scoreText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Score: " : u8"Wynik: ", clr, this->windowRenderer_, this->font_);
     scoreText1->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
     scoreText2->loadFromText((scoreManager.getScore() == 0 ? "" : std::to_string(scoreManager.getScore())) + "0", clr, this->windowRenderer_, this->font_);
     scoreText2->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> tipText1 = std::make_shared<Text>(850.f, 226.f);
     tipText1->loadFromText(*this->lang_ == Language::ENGLISH ? "Controls: " : u8"Sterowanie: ", clr, this->windowRenderer_, this->font_);
     tipText1->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> tipText2 = std::make_shared<Text>(850.f, 292.f);
     tipText2->loadFromText(*this->lang_ == Language::ENGLISH ? "[W/S/A/D] - move" : u8"[W/S/A/D] - ruch", clr, this->windowRenderer_, this->font_);
     tipText2->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> tipText3 = std::make_shared<Text>(850.f, 356.f);
-    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strzaÂ³", clr, this->windowRenderer_, this->font_);
+    tipText3->loadFromText(*this->lang_ == Language::ENGLISH ? "[K] - shoot" : u8"[K] - strza³", clr, this->windowRenderer_, this->font_);
     tipText3->render(0, 0, this->windowRenderer_);
 
-    std::shared_ptr<Text> anyKeyTest = std::make_shared<Text>(850.f, 482.f);
-    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"NaciÂœnij dowolny przycisk, aby zaczÂ¹Ã¦", clr, this->windowRenderer_, this->font_);
+    anyKeyTest->loadFromText(*this->lang_ == Language::ENGLISH ? "Press any key to start" : u8"Naciœnij dowolny przycisk, aby zacz¹æ", clr, this->windowRenderer_, this->font_);
     if (isWaitingToStart) { anyKeyTest->render(0, 0, this->windowRenderer_); }
 }
 
 void Stage::renderHearts() {
     for (int it = 0; it < this->player_->getHp(); ++it) {
-        std::shared_ptr<Renderable> heart = std::make_shared<Renderable>(950.f + 42 * it, 32.f);
-        heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
-        heart->render(0, 0, this->windowRenderer_);
+        hearts[it]->render(0, 0, this->windowRenderer_);
     }
 
     std::shared_ptr<Renderable> banner = std::make_shared<Renderable>(800.f, 693.f);
@@ -86,10 +75,6 @@ void Stage::waitToStart() {
         }
         }
     }
-
-    std::shared_ptr<Renderable> banner = std::make_shared<Renderable>(800.f, 693.f);
-    banner->loadFromFile(1.f, 1.f, 1, 1, 1, *this->lang_ == Language::ENGLISH ? "assets/others/bannerEN.png" : "assets/others/bannerPL.png", this->windowRenderer_);
-    banner->render(0, 0, this->windowRenderer_);
 }
 
 Stage::Stage() { this->init(); }
@@ -211,6 +196,22 @@ void Stage::init() {
         boss->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/skrobella.png", this->windowRenderer_);
         boss->setHitboxRadius(boss->W() / 2);
         renderableManager.addCollisionable(boss);
+
+        for (int it = 0; it < this->player_->getHp(); ++it) {
+            std::shared_ptr<Renderable> heart = std::make_shared<Renderable>(950.f + 42 * it, 32.f);
+            heart->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/life.png", this->windowRenderer_);
+            hearts.push_back(heart);
+        }
+
+        lifeText = std::make_shared<Text>(850.f, 36.f);
+        powerText1 = std::make_shared<Text>(850.f, 100.f);
+        powerText2 = std::make_shared<Text>(1150.f, 100.f, false);
+        scoreText1 = std::make_shared<Text>(850.f, 164.f);
+        scoreText2 = std::make_shared<Text>(1150.f, 164.f, false);
+        tipText1 = std::make_shared<Text>(850.f, 226.f);
+        tipText2 = std::make_shared<Text>(850.f, 292.f);
+        tipText3 = std::make_shared<Text>(850.f, 356.f);
+        anyKeyTest = std::make_shared<Text>(850.f, 482.f);
     }
 }
 
