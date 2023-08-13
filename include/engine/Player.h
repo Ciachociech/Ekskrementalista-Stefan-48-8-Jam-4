@@ -27,6 +27,8 @@ public:
 
     void update(float x, float y) override;
     bool damage(std::int8_t hpDamage) override;
+
+    std::uint8_t getPowerup();
 };
 
 } // namespace engine

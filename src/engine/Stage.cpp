@@ -50,7 +50,7 @@ std::int8_t Stage::run() {
             keyActions.pop_front();
         }
 
-        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_->getUpdateFrameCounter() > 12) {
+        if (*keyActions.begin() == input::KeyAction::shootBullet && this->player_->getUpdateFrameCounter() > (this->player_->getPowerup() < 20 ? 12 : this->player_->getPowerup() < 60 ? 6 : 4)) {
             enableShooting = true;
             keyActions.pop_front();
         }
@@ -76,10 +76,22 @@ std::int8_t Stage::run() {
     }
 
     if (enableShooting) {
-        std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() - 4 + this->player_->W() / 2, this->player_->Y(), playerBulletMovement);
-        bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
-        bullet->setHitboxRadius(bullet->W() / 2);
-        renderableManager.addCollisionable(bullet);
+        if (this->player_->getPowerup() < 40 || this->player_->getPowerup() >= 80) {
+            std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(this->player_->X() - 4 + this->player_->W() / 2, this->player_->Y(), playerBulletCenterMovement);
+            bullet->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+            bullet->setHitboxRadius(bullet->W() / 2);
+            renderableManager.addCollisionable(bullet);
+        }
+        if (this->player_->getPowerup() >= 40) {
+            std::shared_ptr<Bullet> bullet1 = std::make_shared<Bullet>(this->player_->X() - 16 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 80 ? playerBulletCenterMovement : playerBulletLeftMovement);
+            std::shared_ptr<Bullet> bullet2 = std::make_shared<Bullet>(this->player_->X() + 8 + this->player_->W() / 2, this->player_->Y(), this->player_->getPowerup() < 80 ? playerBulletCenterMovement : playerBulletRightMovement);
+            bullet1->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+            bullet2->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->windowRenderer_);
+            bullet1->setHitboxRadius(bullet1->W() / 2);
+            bullet2->setHitboxRadius(bullet2->W() / 2);
+            renderableManager.addCollisionable(bullet1);
+            renderableManager.addCollisionable(bullet2);
+        }
         this->player_->resetUpdateFrameCounter();
     }
 

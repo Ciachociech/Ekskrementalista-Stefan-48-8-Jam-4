@@ -61,7 +61,7 @@ void RenderableManager::checkCollision() {
 							toRemove[it2] = true;
 						}
 						else if ((std::int8_t)(type2) < 0) {
-							this->collisionables_[it1]->damage(-1);
+							this->collisionables_[it1]->damage((std::int8_t)(type2));
 							toRemove[it2] = true;
 						}
 						else if (type2 == engine::CollisionEntityType::BOSS) {
@@ -138,12 +138,30 @@ void RenderableManager::checkCollision() {
 						break;
 					}
 
-					case engine::CollisionEntityType::POWERUP:
-					case engine::CollisionEntityType::CARROT: 
-					case engine::CollisionEntityType::BANANA: 
-					case engine::CollisionEntityType::BROCCOLI: {
+					case engine::CollisionEntityType::POWERUP: {
 						if (type2 == engine::CollisionEntityType::PLAYER) {
 							this->collisionables_[it1]->damage(-1);
+							toRemove[it2] = true;
+						}
+						break;
+					}
+					case engine::CollisionEntityType::CARROT: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							this->collisionables_[it1]->damage(-2);
+							toRemove[it2] = true;
+						}
+						break;
+					}
+					case engine::CollisionEntityType::BANANA: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							this->collisionables_[it1]->damage(-3);
+							toRemove[it2] = true;
+						}
+						break;
+					}
+					case engine::CollisionEntityType::BROCCOLI: {
+						if (type2 == engine::CollisionEntityType::PLAYER) {
+							this->collisionables_[it1]->damage(-4);
 							toRemove[it2] = true;
 						}
 						break;
@@ -251,7 +269,6 @@ void RenderableManager::update() {
 	}
 
 	this->checkCollision();
-	printf("Number of entities: %d\n", this->collisionables_.size());
 }
 
 }
