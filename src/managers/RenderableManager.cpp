@@ -73,8 +73,8 @@ void RenderableManager::checkCollision() {
 							toRemove[it2] = true;
 							if (!(this->collisionables_[it2]->getUpdateFrameCounter() % 4)) {
 								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
-								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->renderer_);
-								powerup->setHitboxRadius(powerup->W() / 2);
+								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
+								powerup->setHitboxRadius(powerup->W());
 								this->addCollisionable(powerup);
 							}
 						}
@@ -84,17 +84,34 @@ void RenderableManager::checkCollision() {
 
 							auto powerupSeed = this->collisionables_[it2]->getUpdateFrameCounter() % 16;
 							engine::CollisionEntityType powerupType;
+							std::string powerupPath;
 							if (powerupSeed > 12) {
 								switch (powerupSeed) {
-									case 13: { powerupType = engine::CollisionEntityType::CARROT; break; }
-									case 14: { powerupType = engine::CollisionEntityType::BANANA; break; }
-									case 15: { powerupType = engine::CollisionEntityType::BROCCOLI; break; }
-									default: { powerupType = engine::CollisionEntityType::POWERUP; break; }
+									case 13: { 
+										powerupType = engine::CollisionEntityType::CARROT;
+										powerupPath = "assets/sprites/carrot.png";
+										break; 
+									}
+									case 14: { 
+										powerupType = engine::CollisionEntityType::BANANA; 
+										powerupPath = "assets/sprites/banana.png";
+										break; 
+									}
+									case 15: {
+										powerupType = engine::CollisionEntityType::BROCCOLI; 
+										powerupPath = "assets/sprites/broccoli.png";
+										break; 
+									}
+									default: { 
+										powerupType = engine::CollisionEntityType::POWERUP; 
+										powerupPath = "assets/sprites/powerup-plus.png";
+										break; 
+									}
 								}
-								//std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupFastMovement, powerupSeed);
-								//powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->renderer_);
-								//powerup->setHitboxRadius(powerup->W() / 2);
-								//this->addCollisionable(powerup);
+								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupFastMovement, powerupType);
+								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, powerupPath, this->renderer_);
+								powerup->setHitboxRadius(powerup->W());
+								this->addCollisionable(powerup);
 							}
 						}
 						break;
@@ -110,8 +127,8 @@ void RenderableManager::checkCollision() {
 							toRemove[it2] = true;
 							if (!(this->collisionables_[it2]->getUpdateFrameCounter() % 4)) {
 								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupSlowMovement, engine::CollisionEntityType::POWERUP);
-								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->renderer_);
-								powerup->setHitboxRadius(powerup->W() / 2);
+								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/powerup-plus.png", this->renderer_);
+								powerup->setHitboxRadius(powerup->W());
 								this->addCollisionable(powerup);
 							}
 						}
@@ -137,19 +154,36 @@ void RenderableManager::checkCollision() {
 							this->collisionables_[it1]->damage(1);
 							toRemove[it2] = true;
 
-							auto powerupSeed = this->collisionables_[it2]->getUpdateFrameCounter() % 16;
+							auto powerupSeed = this->collisionables_[it2]->getUpdateFrameCounter() % 5;
 							engine::CollisionEntityType powerupType;
+							std::string powerupPath;
 							if (powerupSeed > 12) {
 								switch (powerupSeed) {
-								case 13: { powerupType = engine::CollisionEntityType::CARROT; break; }
-								case 14: { powerupType = engine::CollisionEntityType::BANANA; break; }
-								case 15: { powerupType = engine::CollisionEntityType::BROCCOLI; break; }
-								default: { powerupType = engine::CollisionEntityType::POWERUP; break; }
+								case 13: {
+									powerupType = engine::CollisionEntityType::CARROT;
+									powerupPath = "assets/sprites/carrot.png";
+									break;
 								}
-								//std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupFastMovement, powerupSeed);
-								//powerup->loadFromFile(1.f, 1.f, 1, 1, 1, "assets/sprites/poop.png", this->renderer_);
-								//powerup->setHitboxRadius(powerup->W() / 2);
-								//this->addCollisionable(powerup);
+								case 14: {
+									powerupType = engine::CollisionEntityType::BANANA;
+									powerupPath = "assets/sprites/banana.png";
+									break;
+								}
+								case 15: {
+									powerupType = engine::CollisionEntityType::BROCCOLI;
+									powerupPath = "assets/sprites/broccoli.png";
+									break;
+								}
+								default: {
+									powerupType = engine::CollisionEntityType::POWERUP;
+									powerupPath = "assets/sprites/powerup-plus.png";
+									break;
+								}
+								}
+								std::shared_ptr<engine::Powerup> powerup = std::make_shared<engine::Powerup>(this->collisionables_[it2]->X() - 12 + this->collisionables_[it2]->W() / 2, this->collisionables_[it2]->Y() + this->collisionables_[it2]->H(), powerupFastMovement, powerupType);
+								powerup->loadFromFile(1.f, 1.f, 1, 1, 1, powerupPath, this->renderer_);
+								powerup->setHitboxRadius(powerup->W());
+								this->addCollisionable(powerup);
 							}
 						}
 						break;

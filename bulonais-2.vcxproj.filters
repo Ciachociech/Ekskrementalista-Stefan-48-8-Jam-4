@@ -43,9 +43,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -133,12 +130,29 @@
     <Image Include="assets\sprites\bulonais.png">
       <Filter>assets\sprites</Filter>
     </Image>
-    <Image Include="assets\sprites\banana.png" />
-    <Image Include="assets\sprites\big-enemy.png" />
-    <Image Include="assets\sprites\broccoli.png" />
-    <Image Include="assets\sprites\carrot.png" />
-    <Image Include="assets\sprites\medium-enemy.png" />
-    <Image Include="assets\sprites\powerup-plus.png" />
-    <Image Include="assets\sprites\small-enemy.png" />
+    <Image Include="assets\sprites\medium-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\carrot.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\broccoli.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\big-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\banana.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\powerup-plus.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+    <Image Include="assets\sprites\small-enemy.png">
+      <Filter>assets\sprites</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
