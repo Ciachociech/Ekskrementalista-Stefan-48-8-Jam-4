@@ -98,8 +98,6 @@ std::int8_t Stage::run() {
     this->player_->update(movX, movY);
     renderableManager.update();
 
-    printf("Stefan's power: %d\n", this->player_->getPowerup());
-
     this->render();
 
     return 0;
